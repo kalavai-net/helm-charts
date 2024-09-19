@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-watcher-api
-  namespace: kalavai
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1 # ensure there is minimal downtime if node goes down
   selector:
@@ -15,39 +15,17 @@ spec:
     spec:
       containers:
       - name: kube-watcher-api
-        image: bundenth/kube_watcher:v54
+        image: bundenth/kube_watcher:v1.0
         imagePullPolicy: "IfNotPresent"
         ports:
         - containerPort: 8000
         env:
-        - name: PROMETHEUS_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              name: config-data
-              key: prometheus-url
-        - name: OPENCOST_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              name: config-data
-              key: opencost-url
         - name: IN_CLUSTER
-          value: "True"
+          value: "{{ .Values.deployment.in_cluster }}"
         - name: KW_USE_AUTH
-          value: "True"
+          value: "{{ .Values.deployment.use_auth_key }}"
         - name: KW_MASTER_KEY
-          value: "CARLOS_ANNIE_ADAM_KALAVAI"
-        - name: ANVIL_UPLINK_KEY
-          value: "client_AOPKTWK227ZV3R4ENTMOQRIY-ADMVMYW5OIRPH75P"
-        - name: CLUSTER_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              name: config-data
-              key: cluster-endpoint
-        - name: CLUSTER_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: config-data
-              key: cluster-token
+          value: "{{ .Values.deployment.auth_key }}"
         livenessProbe:
           httpGet:
             path: /v1/health
