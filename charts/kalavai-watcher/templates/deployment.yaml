@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-watcher-api
-  namespace: developer-mvp
+  namespace: kalavai
 spec:
   replicas: 1 # ensure there is minimal downtime if node goes down
   selector:

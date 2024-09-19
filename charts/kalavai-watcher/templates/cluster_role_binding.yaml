@@ -3,7 +3,7 @@ kind: ClusterRoleBinding
 metadata:
   name: api-cluster-role-binding
 subjects:
-- namespace: developer-mvp
+- namespace: kalavai
   kind: ServiceAccount
   name: api-service-account 
 roleRef:
