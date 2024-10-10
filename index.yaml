@@ -3,6 +3,16 @@ entries:
   kalavai-watcher:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-10-10T00:09:57.68180851Z"
+    description: A Helm chart for kubernetes api in Kalavai
+    digest: cfae3b76c4f39f0ec787a7124872542fbda26716e5d579843238fa032907bb9c
+    name: kalavai-watcher
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-watcher-0.1.26/kalavai-watcher-0.1.26.tgz
+    version: 0.1.26
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-10-09T12:03:46.262412044Z"
     description: A Helm chart for kubernetes api in Kalavai
     digest: b7c16cb422a7ecf9f10adf98db84d6329152a3192cd2ba601a00425e33d7bd7f
@@ -272,4 +282,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-09T12:03:46.262632347Z"
+generated: "2024-10-10T00:09:57.682114041Z"
