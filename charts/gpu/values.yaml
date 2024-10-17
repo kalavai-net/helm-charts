@@ -1,0 +1,3 @@
+# Default values for gpu operator
+image: "nvcr.io/nvidia/k8s-device-plugin:v0.16.1"
+runtime: nvidia
