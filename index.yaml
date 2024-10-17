@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  gpu:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-10-17T14:11:10.197744333Z"
+    description: A Helm chart for Kubernetes
+    digest: 911aeff3b97c9aafedddbdc9f5288d359f4eb756330eeb8148cf6663c850d9fb
+    name: gpu
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/gpu-0.1.0/gpu-0.1.0.tgz
+    version: 0.1.0
   kalavai-watcher:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -312,4 +323,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-12T16:31:46.008262651Z"
+generated: "2024-10-17T14:11:10.197798474Z"
