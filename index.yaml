@@ -315,6 +315,16 @@ entries:
   lws:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-10-20T14:39:25.540507349Z"
+    description: A Helm chart for Kubernetes
+    digest: 6c56631cb26d6416ad4455fec27d3116de25ee4d0b0174521d87643a7667af3a
+    name: lws
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.1/lws-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-09-16T08:15:53.314773388Z"
     description: A Helm chart for Kubernetes
     digest: 0e084545261505349a1c23e3c800127938f25e146e82827d165031b0c763dfa3
@@ -323,4 +333,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-17T14:11:10.197798474Z"
+generated: "2024-10-20T14:39:25.54059299Z"
