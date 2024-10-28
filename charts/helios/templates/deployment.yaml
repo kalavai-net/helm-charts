@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helios-app
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: helios-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: helios-app
+    spec:
+      containers:
+      - name: helios-container
+        image: bundenth/helios:v1.0.0
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do python /usr/src/app/helios/harvest.py; sleep {{ .Values.deployment.sleep_interval }}; done"]
+        env:
+        - name: WATCHER_ENDPOINT
+          value: "{{ .Values.deployment.watcher_endpoint }}"
+        - name: WATCHER_AUTH_KEY
+          value: "{{ .Values.deployment.watcher_auth_key }}"
+        - name: KALAVAI_API_ENDPOINT
+          value: "{{ .Values.deployment.kalavai_api_endpoint }}"
+        - name: USER_LABEL_KEY
+          value: "{{ .Values.deployment.user_node_label }}"
+

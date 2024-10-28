@@ -1,0 +1,6 @@
+deployment:
+  watcher_endpoint: null
+  watcher_auth_key: null
+  kalavai_api_endpoint: null
+  user_node_label: "kalavai.user"
+  sleep_interval: 300
