@@ -11,6 +11,17 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/gpu-0.1.0/gpu-0.1.0.tgz
     version: 0.1.0
+  kalavai-helios:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-10-28T15:39:47.024901392Z"
+    description: A Helm chart for kubernetes api in Kalavai
+    digest: 448d213e0288c4a468d19782a4b9d85158b4fb54d858b3fbe4fabfb44e8c9b49
+    name: kalavai-helios
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-helios-0.1.0/kalavai-helios-0.1.0.tgz
+    version: 0.1.0
   kalavai-watcher:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -363,4 +374,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-26T09:32:32.376451128Z"
+generated: "2024-10-28T15:39:47.025004324Z"
