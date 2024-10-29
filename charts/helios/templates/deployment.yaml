@@ -19,7 +19,7 @@ spec:
       - name: helios-container
         image: bundenth/helios:v1.0.1
         command: ["/bin/sh"]
-        args: ["-c", "while true; do python /usr/src/app/helios/harvest.py; sleep {{ .Values.deployment.sleep_interval }}; done"]
+        args: ["-c", "while true; sleep {{ .Values.deployment.sleep_interval }}; do python /usr/src/app/helios/harvest.py; done"]
         env:
         - name: WATCHER_ENDPOINT
           value: "{{ .Values.deployment.watcher_endpoint }}"
