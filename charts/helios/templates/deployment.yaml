@@ -17,9 +17,14 @@ spec:
     spec:
       containers:
       - name: helios-container
-        image: bundenth/helios:v1.0.2
-        command: ["/bin/sh"]
-        args: ["-c", "while true; sleep {{ .Values.deployment.sleep_interval }}; do python /usr/src/app/helios/harvest.py; done"]
+        image: bundenth/helios:v1.0.3
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          # liveness probe
+          touch /tmp/healthy
+          sh /usr/src/app/monitor_loop.sh {{ .Values.deployment.sleep_interval }}
+          rm /tmp/healthy
         env:
         - name: WATCHER_ENDPOINT
           value: "{{ .Values.deployment.watcher_endpoint }}"
@@ -29,4 +34,11 @@ spec:
           value: "{{ .Values.deployment.kalavai_api_endpoint }}"
         - name: USER_LABEL_KEY
           value: "{{ .Values.deployment.user_node_label }}"
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /tmp/healthy
+          initialDelaySeconds: 20
+          periodSeconds: 30
 
