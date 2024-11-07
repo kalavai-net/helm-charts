@@ -14,6 +14,16 @@ entries:
   kalavai-helios:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-11-07T10:16:53.974076796Z"
+    description: A Helm chart for kubernetes api in Kalavai
+    digest: 26b7c5abb83420796efbdf0972652c0c4a4b2d709df50ce58dcc7942399a9db3
+    name: kalavai-helios
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-helios-0.1.6/kalavai-helios-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-11-07T10:01:50.622089155Z"
     description: A Helm chart for kubernetes api in Kalavai
     digest: 27798ae284ea11fc0e3d82926803ae4f5679213f21d631c37915fd7d38bf6bdf
@@ -444,4 +454,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-07T10:01:50.622208269Z"
+generated: "2024-11-07T10:16:53.974185679Z"
