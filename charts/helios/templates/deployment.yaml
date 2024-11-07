@@ -17,13 +17,13 @@ spec:
     spec:
       containers:
       - name: helios-container
-        image: bundenth/helios:v1.0.3
+        image: bundenth/helios:v1.0.4
         command: ["/bin/sh", "-c"]
         args:
         - |
           # liveness probe
           touch /tmp/healthy
-          sh /usr/src/app/monitor_loop.sh {{ .Values.deployment.sleep_interval }}
+          sh /usr/src/app/monitor_loop.sh /usr/src/app/helios {{ .Values.deployment.sleep_interval }}
           rm /tmp/healthy
         env:
         - name: WATCHER_ENDPOINT
