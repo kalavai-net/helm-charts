@@ -11,6 +11,24 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/gpu-0.1.0/gpu-0.1.0.tgz
     version: 0.1.0
+  hami:
+  - apiVersion: v2
+    appVersion: "2.3"
+    created: "2024-11-15T16:07:14.386112514Z"
+    description: Heterogeneous AI Computing Virtualization Middleware
+    digest: 9d5b99d38d7c82dd2b76067167117c4094cf2b0071ec977f7150afcdf015dc62
+    keywords:
+    - vgpu
+    - gpu
+    kubeVersion: '>= 1.16.0'
+    maintainers:
+    - email: limengxuan@4paradigm.com
+      name: limengxuan
+    name: hami
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/hami-2.3/hami-2.3.tgz
+    version: "2.3"
   kalavai-helios:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -504,4 +522,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-11T15:34:25.41109166Z"
+generated: "2024-11-15T16:07:14.386214135Z"
