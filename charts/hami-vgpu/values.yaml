@@ -1,0 +1,143 @@
+# Default values for hami-vgpu.
+
+nameOverride: ""
+fullnameOverride: ""
+imagePullSecrets: [ ]
+version: "v2.3.13"
+
+#Nvidia GPU Parameters
+resourceName: "nvidia.com/gpu"
+resourceMem: "nvidia.com/gpumem"
+resourceMemPercentage: "nvidia.com/gpumem-percentage"
+resourceCores: "nvidia.com/gpucores"
+resourcePriority: "nvidia.com/priority"
+
+#MLU Parameters
+mluResourceName: "cambricon.com/vmlu"
+mluResourceMem: "cambricon.com/mlu.smlu.vmemory"
+mluResourceCores: "cambricon.com/mlu.smlu.vcore"
+
+#Hygon DCU Parameters
+dcuResourceName: "hygon.com/dcunum"
+dcuResourceMem: "hygon.com/dcumem"
+dcuResourceCores: "hygon.com/dcucores"
+
+#Iluvatar GPU Parameters
+iluvatarResourceName: "iluvatar.ai/vgpu"
+iluvatarResourceMem: "iluvatar.ai/vcuda-memory"
+iluvatarResourceCore: "iluvatar.ai/vcuda-core"
+
+#Ascend 910B Parameters
+ascendResourceName: "huawei.com/Ascend910"
+ascendResourceMem: "huawei.com/Ascend910-memory"
+
+#Ascend 310P Parameters
+ascend310PResourceName: "huawei.com/Ascend310P"
+ascend310PResourceMem: "huawei.com/Ascend310P-memory"
+
+
+schedulerName: "hami-scheduler"
+
+podSecurityPolicy:
+  enabled: false
+
+global:
+  gpuHookPath: /usr/local
+  labels: {}
+  annotations: {}
+  managedNodeSelectorEnable: false
+  managedNodeSelector:
+    usage: "gpu"
+
+
+scheduler:
+  # @param nodeName defines the node name and the nvidia-vgpu-scheduler-scheduler will schedule to the node.
+  # if we install the nvidia-vgpu-scheduler-scheduler as default scheduler, we need to remove the k8s default
+  # scheduler pod from the cluster first, we must specify node name to skip the schedule workflow.
+  nodeName: ""
+  defaultMem: 0
+  defaultCores: 0
+  defaultGPUNum: 1
+  overwriteEnv: "false"
+  defaultSchedulerPolicy:
+    nodeSchedulerPolicy: binpack
+    gpuSchedulerPolicy: spread
+  metricsBindAddress: ":9395"
+  livenessProbe: false
+  leaderElect: true
+  kubeScheduler:
+    # @param enabled indicate whether to run kube-scheduler container in the scheduler pod, it's true by default.
+    enabled: true
+    imageTag: "v1.20.0"
+    image: registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler
+    imagePullPolicy: IfNotPresent
+    extraNewArgs:
+      - --config=/config/config.yaml
+      - -v=4
+    extraArgs:
+      - --policy-config-file=/config/config.json
+      - -v=4
+  extender:
+    image: "projecthami/hami"
+    imagePullPolicy: IfNotPresent
+    extraArgs:
+      - --debug
+      - -v=4
+  podAnnotations: {}
+  tolerations: []
+  #serviceAccountName: "hami-vgpu-scheduler-sa"
+  customWebhook:
+    enabled: false
+    # must be an endpoint using https.
+    # should generate host certs here
+    host: 127.0.0.1 # hostname or ip, can be your node'IP if you want to use https://<nodeIP>:<schedulerPort>/<path>
+    port: 31998
+    path: /webhook
+    whitelistNamespaces:
+    # Specify the namespaces that the webhook will not be applied to.
+      # - default
+      # - kube-system
+      # - istio-system
+  patch:
+    image: docker.io/jettech/kube-webhook-certgen:v1.5.2
+    imageNew: liangjw/kube-webhook-certgen:v1.1.1
+    imagePullPolicy: IfNotPresent
+    priorityClassName: ""
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    runAsUser: 2000
+  mutatingWebhookConfiguration:
+    failurePolicy: Ignore
+  service:
+    httpPort: 443
+    schedulerPort: 31998
+    monitorPort: 31993
+    labels: {}
+    annotations: {}
+
+devicePlugin:
+  image: "projecthami/hami"
+  monitorimage: "projecthami/hami"
+  monitorctrPath: /usr/local/vgpu/containers
+  imagePullPolicy: IfNotPresent
+  deviceSplitCount: 10
+  deviceMemoryScaling: 1
+  deviceCoreScaling: 1
+  runtimeClassName: ""
+  migStrategy: "none"
+  disablecorelimit: "false"
+  extraArgs:
+    - -v=false
+  
+  service:
+    httpPort: 31992
+    
+  pluginPath: /var/lib/kubelet/device-plugins
+  libPath: /usr/local/vgpu
+
+  podAnnotations: {}
+  nvidianodeSelector:
+    gpu: "on"
+  tolerations: []
+
