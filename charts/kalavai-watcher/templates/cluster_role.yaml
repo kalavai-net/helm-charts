@@ -27,7 +27,6 @@ rules:
       - endpoints
       - horizontalpodautoscalers
       - ingresses
-      - jobs
       - limitranges
       - namespaces
       - nodes
@@ -51,4 +50,6 @@ rules:
       - rayclusters/status
       - vcjob
       - vcjob/status
+      - jobs
+      - jobs/status
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
