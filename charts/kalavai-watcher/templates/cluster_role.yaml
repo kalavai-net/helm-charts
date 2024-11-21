@@ -16,6 +16,7 @@ rules:
         - leaderworkerset.x-k8s.io
         - ray.io
         - storage.k8s.io
+        - batch.volcano.sh
     resources:
       - pods
       - componentstatuses
@@ -48,4 +49,6 @@ rules:
       - pods/eviction
       - rayclusters
       - rayclusters/status
+      - vcjob
+      - vcjob/status
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
