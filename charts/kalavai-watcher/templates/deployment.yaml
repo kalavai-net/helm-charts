@@ -34,6 +34,10 @@ spec:
           value: "{{ .Values.deployment.is_public_pool }}"
         - name: KALAVAI_API_ENDPOINT
           value: {{ .Values.deployment.kalavai_api_endpoint }}
+        - name: PROMETHEUS_ENDPOINT
+          value: {{ .Values.deployment.prometheus_endpoint }}
+        - name: OPENCOST_ENDPOINT
+          value: {{ .Values.deployment.opencost_endpoint }}
         livenessProbe:
           httpGet:
             path: /v1/health
