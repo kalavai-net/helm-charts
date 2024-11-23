@@ -17,15 +17,17 @@ spec:
     spec:
       containers:
       - name: helios-container
-        image: bundenth/helios:v1.0.6
+        image: bundenth/helios:v1.0.7
         command: ["/bin/sh", "-c"]
         args:
         - |
           # liveness probe
           touch /tmp/healthy
-          sh /usr/src/app/monitor_loop.sh /usr/src/app/helios {{ .Values.deployment.sleep_interval }}
+          sh /usr/src/app/monitor_loop.sh /usr/src/app/helios $HARVEST_INTERVAL
           rm /tmp/healthy
         env:
+        - name: HARVEST_INTERVAL
+          value: {{ .Values.deployment.sleep_interval }}
         - name: WATCHER_ENDPOINT
           value: "{{ .Values.deployment.watcher_endpoint }}"
         - name: WATCHER_AUTH_KEY
@@ -41,4 +43,3 @@ spec:
             - /tmp/healthy
           initialDelaySeconds: 20
           periodSeconds: 30
-
