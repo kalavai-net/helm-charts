@@ -27,7 +27,7 @@ spec:
           rm /tmp/healthy
         env:
         - name: HARVEST_INTERVAL
-          value: {{ .Values.deployment.sleep_interval }}
+          value: "{{ .Values.deployment.sleep_interval }}"
         - name: WATCHER_ENDPOINT
           value: "{{ .Values.deployment.watcher_endpoint }}"
         - name: WATCHER_AUTH_KEY
