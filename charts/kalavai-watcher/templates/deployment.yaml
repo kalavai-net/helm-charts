@@ -40,8 +40,6 @@ spec:
           value: {{ .Values.deployment.opencost_endpoint }}
         - name: LONGHORN_MANAGER_ENDPOINT
           value: {{ .Values.deployment.longhorn_manager_endpoint }}
-        
-        LONGHORN_MANAGER_ENDPOINT
         livenessProbe:
           httpGet:
             path: /v1/health
