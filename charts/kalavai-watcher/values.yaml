@@ -9,6 +9,7 @@ deployment:
   kalavai_api_endpoint: "https://platform.kalavai.net/_/api"
   prometheus_endpoint: "prometheus-server.prometheus-system.svc.cluster.local:80"
   opencost_endpoint: "opencost.opencost.svc.cluster.local:9003"
+  longhorn_manager_endpoint: "longhorn-backend.kalavai.svc.cluster.local:9500"
 
 service:
   nodePort: 31000
