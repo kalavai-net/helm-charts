@@ -13,8 +13,6 @@ data:
       password: "your_password"
       namespace: "litellm.caching.caching"
     general_settings:
-      master_key: {{ .Values.litellm.general_settings.master_key }}
-      database_url: postgresql://{{ .Values.postgres.db_user }}:{{ .Values.postgres.db_password }}@postgres.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgres.service.node_port }}/{{ .Values.postgres.db_name }}
       database_connection_pool_limit: {{ .Values.litellm.general_settings.database_connection_pool_limit }}
       database_connection_timeout: {{ .Values.litellm.general_settings.database_connection_timeout }}
       allow_requests_on_db_unavailable: {{ .Values.litellm.general_settings.allow_requests_on_db_unavailable }}
@@ -38,6 +36,15 @@ spec:
       containers:
       - name: litellm
         image: ghcr.io/berriai/litellm:main-latest # it is recommended to fix a version generally
+        env:
+        - name: LITELLM_MASTER_KEY
+          value: {{ .Values.litellm.general_settings.master_key }}
+        - name: LITELLM_SALT_KEY
+          value: {{ .Values.litellm.general_settings.salt_key }}
+        - name: DATABASE_URL
+          value: "postgresql://{{ .Values.postgres.db_user }}:{{ .Values.postgres.db_password }}@postgres.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgres.service.node_port }}/{{ .Values.postgres.db_name }}"
+        - name: STORE_MODEL_IN_DB
+          value: "True"
         ports:
         - containerPort: 4000
         volumeMounts:
