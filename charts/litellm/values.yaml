@@ -1,0 +1,22 @@
+postgres:
+  replicas: 2
+  db_user: ps_user
+  db_password: ps_password
+  db_name: ps_name
+  storage_class:
+    storage_class_name: longhorn-rwx
+    storage_size: 10Gi
+  service:
+    node_port: 30555
+  
+redis:
+  replicas: 2
+  node_port: 30666
+
+litellm:
+  general_settings:
+    master_key: sk-1234
+    database_connection_pool_limit: 0
+    database_connection_timeout: 0
+    allow_requests_on_db_unavailable: true
+  

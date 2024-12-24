@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: litellm-config-file
+  namespace: {{ .Release.Namespace }}
+data:
+  config.yaml: |
+    cache: false
+    cache_params:
+      type: redis
+      host: "localhost"
+      port: 6379 
+      password: "your_password"
+      namespace: "litellm.caching.caching"
+    general_settings:
+      master_key: {{ .Values.litellm.general_settings.master_key }}
+      database_url: postgresql://{{ .Values.postgres.db_user }}:{{ .Values.postgres.db_password }}@postgres.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgres.service.node_port }}/{{ .Values.postgres.db_name }}
+      database_connection_pool_limit: {{ .Values.litellm.general_settings.database_connection_pool_limit }}
+      database_connection_timeout: {{ .Values.litellm.general_settings.database_connection_timeout }}
+      allow_requests_on_db_unavailable: {{ .Values.litellm.general_settings.allow_requests_on_db_unavailable }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: litellm-deployment
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: litellm
+spec:
+  selector:
+    matchLabels:
+      app: litellm
+  template:
+    metadata:
+      labels:
+        app: litellm
+    spec:
+      containers:
+      - name: litellm
+        image: ghcr.io/berriai/litellm:main-latest # it is recommended to fix a version generally
+        ports:
+        - containerPort: 4000
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/proxy_server_config.yaml
+          subPath: config.yaml
+        envFrom:
+        - secretRef:
+            name: litellm-secrets
+      volumes:
+        - name: config-volume
+          configMap:
+            name: litellm-config-file
