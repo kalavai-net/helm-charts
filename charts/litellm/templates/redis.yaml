@@ -25,6 +25,7 @@ metadata:
   name: redis
   namespace: {{ .Release.Namespace }}
 spec:
+  type: NodePort
   selector:
     app: redis
   ports:
