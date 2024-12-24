@@ -20,4 +20,6 @@ litellm:
     database_connection_pool_limit: 0
     database_connection_timeout: 0
     allow_requests_on_db_unavailable: true
+  service:
+    node_port: 30777
   

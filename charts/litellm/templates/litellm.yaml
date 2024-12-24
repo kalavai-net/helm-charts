@@ -51,3 +51,18 @@ spec:
         - name: config-volume
           configMap:
             name: litellm-config-file
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: litellm-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: litellm
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+      nodePort: {{ .Values.litellm.litellm.service.node_port }}
+  type: NodePort
