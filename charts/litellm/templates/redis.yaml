@@ -4,7 +4,7 @@ metadata:
   name: redis
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: {{ .Values.postgres.redis.replicas }}
+  replicas: {{ .Values.redis.replicas }}
   selector:
     matchLabels:
       app: redis
@@ -31,4 +31,4 @@ spec:
     - protocol: TCP
       port: 6379
       targetPort: 6379
-      nodePort: {{ .Values.postgres.redis.service.node_port }}
+      nodePort: {{ .Values.redis.service.node_port }}
