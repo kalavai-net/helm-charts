@@ -133,6 +133,16 @@ entries:
   kalavai-litellm:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-12-24T15:21:44.335162768Z"
+    description: A Helm chart for litellm in Kalavai
+    digest: 259974708e247737abc2027601a8b6382da74a8e74c3141100e3a5ed81fbfc96
+    name: kalavai-litellm
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-litellm-0.1.11/kalavai-litellm-0.1.11.tgz
+    version: 0.1.11
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-12-24T15:17:43.660413354Z"
     description: A Helm chart for litellm in Kalavai
     digest: 3e4abcc1477f11635fe1db74fb4100dc81f297ac4fc8289c8295b51613854a0b
@@ -903,4 +913,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-24T15:17:43.660651802Z"
+generated: "2024-12-24T15:21:44.335374841Z"
