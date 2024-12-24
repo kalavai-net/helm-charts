@@ -50,7 +50,7 @@ spec:
             - configMapRef:
                 name: postgres-secret
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql
               name: postgresdata
       volumes:
         - name: postgresdata
