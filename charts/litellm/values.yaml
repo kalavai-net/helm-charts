@@ -17,6 +17,7 @@ redis:
 litellm:
   general_settings:
     master_key: sk-1234
+    salt_key: sk-1234567890
     database_connection_pool_limit: 0
     database_connection_timeout: 0
     allow_requests_on_db_unavailable: true
