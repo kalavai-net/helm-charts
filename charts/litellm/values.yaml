@@ -18,11 +18,12 @@ litellm:
   general_settings:
     master_key: sk-1234
     salt_key: sk-1234567890
-    database_url: postgres-litellm-do-user-14127040-0.l.db.ondigitalocean.com
+    database_url: postgres://postgres-litellm-do-user-14127040-0.l.db.ondigitalocean.com:25060
     database_port: 25060
     database_user: doadmin
     database_password: default
     database_name: defaultdb
+    database_username: doadmin
     database_connection_pool_limit: 0
     database_connection_timeout: 0
     allow_requests_on_db_unavailable: true
