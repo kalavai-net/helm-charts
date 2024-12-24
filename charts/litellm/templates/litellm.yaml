@@ -15,8 +15,8 @@ data:
     litellm_settings:
       num_retries: 3
     general_settings:
-      master_key: {{ .Values.litellm.general_settings.master_key }}
-      database_url: "postgresql://{{ .Values.postgres.db_user }}:{{ .Values.postgres.db_password }}@postgres.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.postgres.db_name }}"
+      #master_key: {{ .Values.litellm.general_settings.master_key }}
+      #database_url:  #"postgresql://{{ .Values.postgres.db_user }}:{{ .Values.postgres.db_password }}@postgres.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.postgres.db_name }}"
       disable_prisma_schema_update: false
       database_connection_pool_limit: {{ .Values.litellm.general_settings.database_connection_pool_limit }}
       database_connection_timeout: {{ .Values.litellm.general_settings.database_connection_timeout }}
