@@ -1,16 +1,4 @@
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-secret
-  namespace: {{ .Release.Namespace }}
-  labels:
-    app: postgres
-data:
-  POSTGRES_DB: {{ .Values.postgres.db_name }}
-  POSTGRES_USER: {{ .Values.postgres.db_user }}
-  POSTGRES_PASSWORD: {{ .Values.postgres.db_password }}
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-volume-claim
@@ -46,9 +34,13 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
-          envFrom:
-            - configMapRef:
-                name: postgres-secret
+          env:
+          - name: POSTGRES_DB
+            value: {{ .Values.postgres.db_name }}
+          - name: POSTGRES_USER
+            value: {{ .Values.postgres.db_user }}
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.postgres.db_password }}
           volumeMounts:
             - mountPath: /var/lib/postgresql
               name: postgresdata
