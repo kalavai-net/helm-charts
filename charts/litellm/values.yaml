@@ -11,7 +11,8 @@ postgres:
   
 redis:
   replicas: 2
-  node_port: 30666
+  service:
+    node_port: 30666
 
 litellm:
   general_settings:
