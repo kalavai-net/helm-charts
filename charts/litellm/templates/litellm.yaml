@@ -64,5 +64,5 @@ spec:
     - protocol: TCP
       port: 4000
       targetPort: 4000
-      nodePort: {{ .Values.litellm.litellm.service.node_port }}
+      nodePort: {{ .Values.litellm.service.node_port }}
   type: NodePort
