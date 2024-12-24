@@ -48,6 +48,12 @@ spec:
           value: {{ .Values.litellm.general_settings.salt_key }}
         - name: DATABASE_URL
           value: "postgresql://{{ .Values.postgres.db_user }}:{{ .Values.postgres.db_password }}@postgres.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.postgres.db_name }}"
+        - name: DATABASE_NAME
+          value: {{ .Values.postgres.db_name }}
+        - name: DATABASE_USER
+          value: {{ .Values.postgres.db_user }}
+        - name: DATABASE_PASSWORD
+          value: {{ .Values.postgres.db_password }}
         - name: STORE_MODEL_IN_DB
           value: "True"
         ports:
