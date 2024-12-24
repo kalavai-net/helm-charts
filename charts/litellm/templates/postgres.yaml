@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: 'postgres:14'
+          image: 'postgres:12'
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
