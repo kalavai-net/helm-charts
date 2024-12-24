@@ -48,16 +48,16 @@ spec:
           value: {{ .Values.litellm.general_settings.salt_key }}
         - name: DATABASE_URL
           value: {{ .Values.litellm.general_settings.database_url }} #"postgresql://{{ .Values.postgres.db_user }}:{{ .Values.postgres.db_password }}@postgres.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.postgres.db_name }}"
-        - name: DATABASE_NAME
-          value: {{ .Values.litellm.general_settings.database_name }} #{{ .Values.postgres.db_name }}
-        - name: DATABASE_USER
-          value: {{ .Values.litellm.general_settings.database_user }} #{{ .Values.postgres.db_user }}
-        - name: DATABASE_USERNAME
-          value: {{ .Values.litellm.general_settings.database_username }} #{{ .Values.postgres.db_user }}
-        - name: DATABASE_PASSWORD
-          value: {{ .Values.litellm.general_settings.database_password }} #{{ .Values.postgres.db_password }}
-        - name: DATABASE_PORT
-          value: "{{ .Values.litellm.general_settings.database_port }}"
+        # - name: DATABASE_NAME
+        #   value: {{ .Values.litellm.general_settings.database_name }} #{{ .Values.postgres.db_name }}
+        # - name: DATABASE_USER
+        #   value: {{ .Values.litellm.general_settings.database_user }} #{{ .Values.postgres.db_user }}
+        # - name: DATABASE_USERNAME
+        #   value: {{ .Values.litellm.general_settings.database_username }} #{{ .Values.postgres.db_user }}
+        # - name: DATABASE_PASSWORD
+        #   value: {{ .Values.litellm.general_settings.database_password }} #{{ .Values.postgres.db_password }}
+        # - name: DATABASE_PORT
+        #   value: "{{ .Values.litellm.general_settings.database_port }}"
         - name: STORE_MODEL_IN_DB
           value: "True"
         ports:
