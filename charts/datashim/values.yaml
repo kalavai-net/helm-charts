@@ -1,0 +1,12 @@
+s3:
+  secret_name: kalavai-s3-secret
+  accessKeyID: whatever
+  secretAccessKey: whatever
+  endpoint: https://region.digitaloceanspaces.com
+  bucket: mybucket
+
+dataset:
+  name: model-weights
+  type: COS
+  readonly: "false"
+
