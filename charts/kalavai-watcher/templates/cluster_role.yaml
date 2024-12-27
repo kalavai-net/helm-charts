@@ -17,6 +17,7 @@ rules:
         - ray.io
         - storage.k8s.io
         - batch.volcano.sh
+        - datashim.io
     resources:
       - pods
       - componentstatuses
@@ -52,4 +53,5 @@ rules:
       - vcjob/status
       - jobs
       - jobs/status
+      - datasets
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
