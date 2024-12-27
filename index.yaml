@@ -32,6 +32,16 @@ entries:
   kalavai-datashim:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-12-27T14:31:19.665411672Z"
+    description: A Helm chart for datashim in Kalavai
+    digest: 6f1e7c58d9cce535527e4523e921cba88f81f2feeb515e9ec661d10b2a356d11
+    name: kalavai-datashim
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-datashim-0.4.0/kalavai-datashim-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-12-27T14:28:15.733787155Z"
     description: A Helm chart for datashim in Kalavai
     digest: 33e2aa292de385dca5bef2c9779cf29f4e2beb0e03c10e4d68e05d1960d88bf5
@@ -1004,4 +1014,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-27T14:28:15.733993842Z"
+generated: "2024-12-27T14:31:19.665597419Z"
