@@ -32,6 +32,8 @@ spec:
           value: {{ .Values.deployment.readonly_key }}
         - name: IS_PUBLIC_POOL
           value: "{{ .Values.deployment.is_public_pool }}"
+        - name: FORCE_COMMON_POOL
+          value: "{{ .Values.deployment.force_common_pool }}"
         - name: KALAVAI_API_ENDPOINT
           value: {{ .Values.deployment.kalavai_api_endpoint }}
         - name: PROMETHEUS_ENDPOINT

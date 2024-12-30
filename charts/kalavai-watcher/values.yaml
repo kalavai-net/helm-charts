@@ -6,6 +6,7 @@ deployment:
   readonly_key: "anotherkey"
   write_key: "anotherkey2"
   is_public_pool: "False"
+  force_common_pool: "True"
   kalavai_api_endpoint: "https://platform.kalavai.net/_/api"
   prometheus_endpoint: "prometheus-server.prometheus-system.svc.cluster.local:80"
   opencost_endpoint: "opencost.opencost.svc.cluster.local:9003"
