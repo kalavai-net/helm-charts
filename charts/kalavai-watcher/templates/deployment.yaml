@@ -30,10 +30,10 @@ spec:
           value: {{ .Values.deployment.write_key }}
         - name: KW_READ_ONLY_KEY
           value: {{ .Values.deployment.readonly_key }}
-        - name: IS_PUBLIC_POOL
-          value: "{{ .Values.deployment.is_public_pool }}"
-        - name: FORCE_COMMON_POOL
-          value: "{{ .Values.deployment.force_common_pool }}"
+        - name: IS_SHARED_POOL
+          value: "{{ .Values.deployment.is_shared_pool }}"
+        - name: ALLOW_UNREGISTERED_USER
+          value: "{{ .Values.deployment.allow_unregistered_user }}"
         - name: KALAVAI_API_ENDPOINT
           value: {{ .Values.deployment.kalavai_api_endpoint }}
         - name: PROMETHEUS_ENDPOINT
