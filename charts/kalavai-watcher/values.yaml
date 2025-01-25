@@ -1,3 +1,5 @@
+version: latest
+
 deployment:
   in_cluster: "True"
   replicas: 2
