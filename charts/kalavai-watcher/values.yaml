@@ -1,4 +1,4 @@
-version: latest
+image_tag: latest
 
 deployment:
   in_cluster: "True"
