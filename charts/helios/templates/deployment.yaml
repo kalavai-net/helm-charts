@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: helios-container
-        image: bundenth/helios:v1.0.7
+        image: bundenth/helios:v1.0.8
         command: ["/bin/sh", "-c"]
         args:
         - |
