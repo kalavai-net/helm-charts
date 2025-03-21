@@ -1083,6 +1083,29 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-watcher-0.1.0/kalavai-watcher-0.1.0.tgz
     version: 0.1.0
+  lago:
+  - apiVersion: v2
+    appVersion: 1.23.0
+    created: "2025-03-21T11:08:58.099379423Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.2
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.2.1
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.min.io/
+      version: 5.2.0
+    description: the Lago open source billing app
+    digest: 4ad3569b4455e09ea2257d1e61395fb1c15c09695f3be83650b18e8503047417
+    name: lago
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/lago-1.21.3/lago-1.21.3.tgz
+    version: 1.21.3
   lws:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -1104,4 +1127,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-18T14:42:10.732042549Z"
+generated: "2025-03-21T11:08:58.099645984Z"
