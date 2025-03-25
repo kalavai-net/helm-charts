@@ -2,6 +2,8 @@ image_tag: latest
 
 deployment:
   in_cluster: "True"
+  kalavai_username_key: "kalavai.cluster.user"
+  kalavai_user_email_key: "kalavai.cluster.email"
   replicas: 2
   use_auth_key: "True"
   admin_key: "somerandomkey"
