@@ -24,8 +24,6 @@ spec:
           value: "{{ .Values.deployment.in_cluster }}"
         - name: KALAVAI_USER_KEY
           value: "{{ .Values.deployment.kalavai_username_key }}"
-        - name: KALAVAI_USER_EMAIL
-          value: "{{ .Values.deployment.kalavai_user_email_key }}"
         - name: KW_USE_AUTH
           value: "{{ .Values.deployment.use_auth_key }}"
         - name: KW_ADMIN_KEY
