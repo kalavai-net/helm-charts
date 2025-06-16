@@ -89,19 +89,22 @@ masterkeySecretKey: ""
 #  Examples: https://github.com/BerriAI/litellm/tree/main/litellm/proxy/example_config_yaml
 #  Reference: https://docs.litellm.ai/docs/proxy/configs
 proxy_config:
-  model_list:
-    # At least one model must exist for the proxy to start.
-    - model_name: gpt-3.5-turbo
-      litellm_params:
-        model: gpt-3.5-turbo
-        api_key: eXaMpLeOnLy
-    - model_name: fake-openai-endpoint
-      litellm_params:
-        model: openai/fake
-        api_key: fake-key
-        api_base: https://exampleopenaiendpoint-production.up.railway.app/
   general_settings:
     master_key: testkey
+  litellm_settings:
+    num_retries: 3
+    request_timeout: 9000
+    success_callback: ["langfuse"]
+    failure_callback: ["langfuse"]
+    redact_user_api_key_info: true
+    # redacts messages and response content
+    turn_off_message_logging: true
+  callback_settings:
+    otel:
+      message_logging: False
+  router_settings:
+    timeout: 9000
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
