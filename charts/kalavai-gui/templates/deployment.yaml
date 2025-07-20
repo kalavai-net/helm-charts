@@ -22,7 +22,8 @@ spec:
         - |
           reflex run \
             --backend-port {{ .Values.deployment.internal_backend_port }} \
-            --frontend-port {{ .Values.deployment.internal_gui_port }}
+            --frontend-port {{ .Values.deployment.internal_gui_port }} \
+            --backend-host {{ .Values.deployment.internal_backend_host}}
         ports:
         - containerPort: {{ .Values.deployment.internal_gui_port }}
         env:
@@ -34,4 +35,11 @@ spec:
         - name: ACCESS_KEY
           value: "{{ .Values.deployment.access_key }}"
         {{ end }}
+        resources:
+          requests:
+            cpu: 0.25
+            memory: 0.2Gi
+          limits:
+            cpu: 0.25
+            memory: 0.2Gi
     

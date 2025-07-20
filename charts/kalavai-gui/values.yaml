@@ -6,6 +6,7 @@ deployment:
   access_key: ""
   internal_gui_port: 3000
   internal_backend_port: 8000
+  internal_backend_host: "0.0.0.0"
 
 service:
-  nodePort: 33000
+  nodePort: 30008
