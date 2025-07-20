@@ -6,10 +6,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: {{ .Values.deployment.internal_gui_port }}
+  - name: gui-port
+    port: {{ .Values.deployment.internal_gui_port }}
     targetPort: {{ .Values.deployment.internal_gui_port }}
     nodePort: {{ .Values.service.frontend_nodePort }}
-  - port: {{ .Values.deployment.internal_backend_port }}
+  - name: backend-port
+    port: {{ .Values.deployment.internal_backend_port }}
     targetPort: {{ .Values.deployment.internal_backend_port }}
     nodePort: {{ .Values.service.backend_nodePort }}
   selector:
