@@ -1,0 +1,11 @@
+image_tag: latest
+
+deployment:
+  bridge_api_url: ""
+  bridge_api_endpoint: ""
+  access_key: ""
+  internal_gui_port: 3000
+  internal_backend_port: 8000
+
+service:
+  nodePort: 33000
