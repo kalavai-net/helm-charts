@@ -2,7 +2,7 @@ image_tag: latest
 
 deployment:
   bridge_api_url: ""
-  bridge_api_endpoint: ""
+  bridge_api_port: ""
   access_key: ""
   internal_gui_port: 3000
   internal_backend_port: 8000
