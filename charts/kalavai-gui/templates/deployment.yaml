@@ -21,7 +21,7 @@ spec:
         args:
         - |
           reflex run \
-            --backend-port {{ .Values.deployment.backend_nodePort }} \
+            --backend-port {{ .Values.service.backend_nodePort }} \
             --frontend-port {{ .Values.deployment.internal_gui_port }} \
             --backend-host {{ .Values.deployment.internal_backend_host}}
         ports:
