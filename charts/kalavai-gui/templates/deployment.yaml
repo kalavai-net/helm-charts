@@ -21,11 +21,12 @@ spec:
         args:
         - |
           reflex run \
-            --backend-port {{ .Values.deployment.internal_backend_port }} \
+            --backend-port {{ .Values.deployment.backend_nodePort }} \
             --frontend-port {{ .Values.deployment.internal_gui_port }} \
             --backend-host {{ .Values.deployment.internal_backend_host}}
         ports:
         - containerPort: {{ .Values.deployment.internal_gui_port }}
+        - containerPort: {{ .Values.deployment.internal_backend_port }}
         env:
         - name: KALAVAI_BRIDGE_URL
           value: "{{ .Values.deployment.bridge_api_url }}"

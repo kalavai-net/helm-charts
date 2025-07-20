@@ -9,4 +9,5 @@ deployment:
   internal_backend_host: "0.0.0.0"
 
 service:
-  nodePort: 30008
+  backend_nodePort: 30008
+  frontend_nodePort: 30009
