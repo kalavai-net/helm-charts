@@ -50,6 +50,17 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-datashim-0.1.1/kalavai-datashim-0.1.1.tgz
     version: 0.1.1
+  kalavai-gui:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-20T10:19:24.758826276Z"
+    description: A Helm chart for gui interface for kalavai-client
+    digest: 500788b26a6fd75bb9326968aef7524e968a0a058a789431fc4c824baf15ae04
+    name: kalavai-gui
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-gui-0.1.0/kalavai-gui-0.1.0.tgz
+    version: 0.1.0
   kalavai-helios:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -1208,4 +1219,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-16T15:09:28.638607519Z"
+generated: "2025-07-20T10:19:24.759112846Z"
