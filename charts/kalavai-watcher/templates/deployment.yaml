@@ -13,6 +13,12 @@ spec:
       labels:
         app: kube-watcher-api
     spec:
+    {{ if .Values.deployment.nodeSelector }}
+      nodeSelector:
+      {{- range $name,$value := .Values.deployment.nodeSelector }}
+        {{$name}}: {{$value}}
+      {{- end }}
+    {{ end }}
       containers:
       - name: kube-watcher-api
         image: bundenth/kube-watcher:{{ .Values.image_tag }}
@@ -50,4 +56,11 @@ spec:
             port: 8000
           initialDelaySeconds: 20
           periodSeconds: 30
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpus }}
+            memory: {{ .Values.resources.requests.memory }}Gi
+          limits:
+            cpu: {{ .Values.resources.limits.cpus }}
+            memory: {{ .Values.resources.limits.memory }}Gi
       serviceAccountName: api-service-account  # Service account with cluster permissions

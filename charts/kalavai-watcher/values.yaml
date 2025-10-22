@@ -1,6 +1,7 @@
 image_tag: latest
 
 deployment:
+  nodeSelector: null
   in_cluster: "True"
   kalavai_username_key: "kalavai.cluster.user"
   replicas: 1
@@ -17,3 +18,12 @@ deployment:
 
 service:
   nodePort: 31000
+
+resources:
+  requests:
+    cpus: 1
+    memory: 0.5
+  limits:
+    cpus: 2
+    memory: 2
+    
