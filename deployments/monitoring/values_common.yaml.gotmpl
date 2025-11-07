@@ -1,0 +1,114 @@
+{{ $prometheus_fullname := "mon-prometheus-server" }}
+---
+prometheus:
+  enabled: true
+  server:
+  #  ingress:
+  #    enabled: true
+  #    ingressClassName: traefik
+    tolerations:
+    - key: "monitoring"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+
+    nodeSelector:
+      monitoring: "true"
+
+    global:
+      scrape_interval: 15s
+  prometheus-node-exporter:
+    enabled: true
+    hostRootFsMount:
+      enabled: false
+    extraArgs:
+    - --path.rootfs=/hostroot
+    - --path.udev.data=/hostroot/run/udev/data
+    extraHostVolumeMounts:
+    - hostPath: /hostroot
+      type:
+      readOnly: false
+      mountPath: /hostroot
+      name: hostrootfs
+      mountPropagation: HostToContainer
+
+grafana:
+  enabled: true
+
+  adminUser: admin
+  adminPassword: KalavaiGraf
+
+  ingress:
+    enabled: true
+    path: /
+    pathType: Prefix
+    hosts:
+      - chart-example.local
+  nodeSelector:
+      monitoring-master: "true"
+  tolerations:
+  - key: "monitoring-master"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://{{ $prometheus_fullname }}
+  dashboards:
+    default:
+      Node-exporter:
+        # Ref: https://grafana.com/dashboards/1860
+        gnetId: 1860
+        revision: 33
+        datasource: Prometheus
+      Kubernetes-Nodes:
+        # Ref: https://grafana.com/dashboards/8171
+        gnetId: 8171
+        revision: 1
+        datasource: Prometheus
+      Kubernetes-Deployment-Statefulset-Daemonset-metrics:
+        # Ref: https://grafana.com/dashboards/8588
+        gnetId: 8588
+        revision: 1
+        datasource: Prometheus
+      k8s-views-global:
+        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+        token: ''
+      k8s-views-namespaces:
+        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+        token: ''
+      k8s-views-nodes:
+        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+        token: ''
+      k8s-views-pods:
+        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+        token: ''
+      nvidia-gpu:
+        gnetId: 12239
+        revision: 2
+        datasource: Prometheus
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+#  resources: {}
+#  #  limits:
+#  #    cpu: 100m
+#  #    memory: 128Mi
+#  #  requests:
+#  #    cpu: 100m
+#  #    memory: 128Mi

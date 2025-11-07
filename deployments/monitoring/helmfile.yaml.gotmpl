@@ -1,0 +1,30 @@
+repositories:
+- name: prometheus-community
+  url:  https://prometheus-community.github.io/helm-charts 
+
+environments:
+#  {{ .Environment.Name }}:
+#    values:
+#    - env/{{ .Environment.Name }}/values.yaml
+#    secrets:
+#    - env/{{ .Environment.Name }}/secrets.yaml
+#
+---
+releases:
+- name: mon
+  namespace: mon
+  createNamespace: true
+
+  kubeContext: {{ default "k3s" (env "KUBE_CONTEXT") }}
+
+  # Perform clean up when ran by automated ci/cd pipline. Skip clean up for manual deployment
+  # allowing for troubleshooting
+  cleanupOnFail: {{ if (env "GITHUB_ACTIONS") }} true {{ else }} false {{ end }}
+  wait: {{ if (env "GITHUB_ACTIONS") }} true {{ else }} false {{ end }}
+  atomic: {{ if (env "GITHUB_ACTIONS") }} true {{ else }} false {{ end }}
+
+  chart: ./
+  version: 1.0.0
+
+  values:
+  - values_common.yaml.gotmpl
