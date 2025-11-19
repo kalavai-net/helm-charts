@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: kalavai-gui
-        image: bundenth/kalavai-gui:{{ .Values.image_tag }}
+        image: kalavai/kalavai-gui:{{ .Values.image_tag }}
         imagePullPolicy: "IfNotPresent"
         command: ["/bin/sh", "-c"]
         args:
