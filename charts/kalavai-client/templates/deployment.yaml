@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name}}-{{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name}}-{{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name}}-{{ .Chart.Name }}
+    spec:
+      containers:
+      {{ if .Values.frontend.enabled }}
+      - name: kalavai-gui
+        image: kalavai/kalavai-gui:{{ .Values.frontend.image_tag }}
+        imagePullPolicy: "IfNotPresent"
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          reflex run \
+            --backend-port 8001 \
+            --frontend-port 3000 \
+            --backend-host 0.0.0.0
+        ports:
+        - containerPort: 3000
+        - containerPort: 8001
+        env:
+        {{ if .Values.backend.enabled }}
+        - name: KALAVAI_BRIDGE_URL
+          value: "http://{{ .Release.Name}}-{{ .Chart.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
+        - name: KALAVAI_BRIDGE_PORT
+          value: "8000"
+        {{ else }}
+        - name: KALAVAI_BRIDGE_URL
+          value: "{{ .Values.deployment.external_bridge_api_url }}"
+        - name: KALAVAI_BRIDGE_PORT
+          value: "{{ .Values.deployment.external_bridge_api_port }}"
+        {{ end }}
+        {{ if .Values.deployment.access_key }}
+        - name: ACCESS_KEY
+          value: "{{ .Values.deployment.access_key }}"
+        {{ end }}
+        resources:
+          requests:
+            cpu: 0.25
+            memory: 0.2Gi
+          limits:
+            cpu: 0.25
+            memory: 0.2Gi
+      {{ end }}
+      {{ if .Values.backend.enabled }}
+      - name: kalavai-backend
+        image: kalavai/kalavai-client:{{ .Values.backend.image_tag }}
+        imagePullPolicy: "IfNotPresent"
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          python kalavai_client/bridge_api.py --host 0.0.0.0 --port 8000 --log_level debug
+        ports:
+        - containerPort: 8000
+        env:
+        - name: WATCHER_API_URL
+          value: "{{ .Values.backend.watcher_api_url }}"
+        - name: WATCHER_API_KEY
+          value: "{{ .Values.backend.watcher_api_key }}"
+        resources:
+          requests:
+            cpu: 0.25
+            memory: 0.2Gi
+          limits:
+            cpu: 0.25
+            memory: 0.2Gi
+      {{ end }}
+    

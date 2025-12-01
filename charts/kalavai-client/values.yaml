@@ -1,0 +1,14 @@
+releaseName:
+
+frontend:
+  image_tag: latest
+  enabled: true
+  external_bridge_api_url: null
+  external_bridge_api_port: null
+  access_key: ""
+
+backend:
+  image_tag: latest
+  enabled: true
+  watcher_api_url: http://localhost:30000
+  watcher_api_key: api_key_here
