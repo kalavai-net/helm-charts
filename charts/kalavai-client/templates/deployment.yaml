@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       {{ if .Values.frontend.enabled }}
-      - name: kalavai-gui
+      - name: gui
         image: kalavai/kalavai-gui:{{ .Values.frontend.image_tag }}
         imagePullPolicy: "IfNotPresent"
         command: ["/bin/sh", "-c"]
@@ -29,7 +29,7 @@ spec:
         - containerPort: 3000
         - containerPort: 8001
         env:
-        {{ if .Values.backend.enabled }}
+        {{ if .Values.bridge.enabled }}
         - name: KALAVAI_BRIDGE_URL
           value: "http://{{ .Release.Name}}-{{ .Chart.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
         - name: KALAVAI_BRIDGE_PORT
@@ -40,10 +40,10 @@ spec:
         - name: KALAVAI_BRIDGE_PORT
           value: "{{ .Values.frontend.external_bridge_api_port }}"
         {{ end }}
-        # {{ if .Values.frontend.access_key }}
-        # - name: ACCESS_KEY
-        #   value: "{{ .Values.frontend.access_key }}"
-        # {{ end }}
+        {{ if .Values.frontend.access_key }}
+        - name: ACCESS_KEY
+          value: "{{ .Values.frontend.access_key }}"
+        {{ end }}
         resources:
           requests:
             cpu: {{ .Values.frontend.cpus}}
@@ -52,9 +52,9 @@ spec:
             cpu: {{ .Values.frontend.cpus}}
             memory: {{ .Values.frontend.memory}}
       {{ end }}
-      {{ if .Values.backend.enabled }}
-      - name: kalavai-backend
-        image: kalavai/kalavai-client:{{ .Values.backend.image_tag }}
+      {{ if .Values.bridge.enabled }}
+      - name: bridge
+        image: kalavai/kalavai-client:{{ .Values.bridge.image_tag }}
         imagePullPolicy: "IfNotPresent"
         command: ["/bin/sh", "-c"]
         args:
@@ -64,15 +64,15 @@ spec:
         - containerPort: 8000
         env:
         - name: WATCHER_API_URL
-          value: "{{ .Values.backend.watcher_api_url }}"
+          value: "{{ .Values.bridge.watcher_api_url }}"
         - name: WATCHER_API_KEY
-          value: "{{ .Values.backend.watcher_api_key }}"
+          value: "{{ .Values.bridge.watcher_api_key }}"
         resources:
           requests:
-            cpu: {{ .Values.backend.cpus}}
-            memory: {{ .Values.backend.memory}}
+            cpu: {{ .Values.bridge.cpus}}
+            memory: {{ .Values.bridge.memory}}
           limits:
-            cpu: {{ .Values.backend.cpus}}
-            memory: {{ .Values.backend.memory}}
+            cpu: {{ .Values.bridge.cpus}}
+            memory: {{ .Values.bridge.memory}}
       {{ end }}
     
