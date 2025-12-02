@@ -36,21 +36,21 @@ spec:
           value: "8000"
         {{ else }}
         - name: KALAVAI_BRIDGE_URL
-          value: "{{ .Values.deployment.external_bridge_api_url }}"
+          value: "{{ .Values.frontend.external_bridge_api_url }}"
         - name: KALAVAI_BRIDGE_PORT
-          value: "{{ .Values.deployment.external_bridge_api_port }}"
+          value: "{{ .Values.frontend.external_bridge_api_port }}"
         {{ end }}
-        {{ if .Values.deployment.access_key }}
+        {{ if .Values.frontend.access_key }}
         - name: ACCESS_KEY
-          value: "{{ .Values.deployment.access_key }}"
+          value: "{{ .Values.frontend.access_key }}"
         {{ end }}
         resources:
           requests:
             cpu: 0.25
-            memory: 0.2Gi
+            memory: 500Mi
           limits:
             cpu: 0.25
-            memory: 0.2Gi
+            memory: 500Mi
       {{ end }}
       {{ if .Values.backend.enabled }}
       - name: kalavai-backend
@@ -70,9 +70,9 @@ spec:
         resources:
           requests:
             cpu: 0.25
-            memory: 0.2Gi
+            memory: 500Mi
           limits:
             cpu: 0.25
-            memory: 0.2Gi
+            memory: 500Mi
       {{ end }}
     
