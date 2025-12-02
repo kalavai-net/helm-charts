@@ -40,10 +40,10 @@ spec:
         - name: KALAVAI_BRIDGE_PORT
           value: "{{ .Values.frontend.external_bridge_api_port }}"
         {{ end }}
-        {{ if .Values.frontend.access_key }}
-        - name: ACCESS_KEY
-          value: "{{ .Values.frontend.access_key }}"
-        {{ end }}
+        # {{ if .Values.frontend.access_key }}
+        # - name: ACCESS_KEY
+        #   value: "{{ .Values.frontend.access_key }}"
+        # {{ end }}
         resources:
           requests:
             cpu: {{ .Values.frontend.cpus}}
