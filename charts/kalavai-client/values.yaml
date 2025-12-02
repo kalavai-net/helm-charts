@@ -5,9 +5,9 @@ frontend:
   enabled: true
   external_bridge_api_url: null
   external_bridge_api_port: null
-  access_key: ""
+  access_key: null
   cpus: 0.25
-  memory: 1024Mi
+  memory: 2048Mi
 
 backend:
   image_tag: latest
