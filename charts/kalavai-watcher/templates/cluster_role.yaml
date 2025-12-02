@@ -18,6 +18,7 @@ rules:
         - storage.k8s.io
         - batch.volcano.sh
         - datashim.io
+        - scheduling.k8s.io
     resources:
       - pods
       - componentstatuses
