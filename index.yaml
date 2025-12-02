@@ -32,6 +32,16 @@ entries:
   kalavai-client:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-12-02T10:02:29.719454081Z"
+    description: A Helm chart for client for a remote kalavai pool
+    digest: 12b7381d3264b0337a20defdb97825a1348d78d4be93e0aa1e5d8634f69aa59b
+    name: kalavai-client
+    type: application
+    urls:
+    - https://github.com/kalavai-net/helm-charts/releases/download/kalavai-client-0.1.1/kalavai-client-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-12-01T20:29:57.701788549Z"
     description: A Helm chart for client for a remote kalavai pool
     digest: 13dfbfbf5eab1b716f830eefa9be75c954a89929b0d9c395d83610b1ddf88ce5
@@ -1330,4 +1340,4 @@ entries:
     urls:
     - https://github.com/kalavai-net/helm-charts/releases/download/lws-0.1.0/lws-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-02T09:43:23.765031951Z"
+generated: "2025-12-02T10:02:29.719657101Z"
