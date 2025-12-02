@@ -24,7 +24,8 @@ spec:
           reflex run \
             --backend-port 8001 \
             --frontend-port 3000 \
-            --backend-host 0.0.0.0
+            --backend-host 0.0.0.0 \
+            --loglevel debug
         ports:
         - containerPort: 3000
         - containerPort: 8001
