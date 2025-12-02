@@ -9,5 +9,8 @@ spec:
   - name: gui-port
     port: 3000
     targetPort: 3000
+  - name: backend-port
+    port: 8000
+    targetPort: 8000
   selector:
     app: {{ .Release.Name}}-{{ .Chart.Name }}
