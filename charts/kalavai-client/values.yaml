@@ -6,9 +6,13 @@ frontend:
   external_bridge_api_url: null
   external_bridge_api_port: null
   access_key: ""
+  cpus: 0.25
+  memory: 1024Mi
 
 backend:
   image_tag: latest
   enabled: true
   watcher_api_url: http://localhost:30000
   watcher_api_key: api_key_here
+  cpus: 0.25
+  memory: 256Mi
