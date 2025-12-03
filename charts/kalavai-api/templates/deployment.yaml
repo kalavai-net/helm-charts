@@ -13,6 +13,12 @@ spec:
       labels:
         app: {{ .Release.Name}}-{{ .Chart.Name }}
     spec:
+    {{ if .Values.bridge.nodeSelector }}
+      nodeSelector:
+      {{- range $name,$value := .Values.bridge.nodeSelector }}
+        {{$name}}: {{$value}}
+      {{- end }}
+    {{ end }}
       containers:
       - name: bridge
         image: kalavai/kalavai-client:{{ .Values.bridge.image_tag }}

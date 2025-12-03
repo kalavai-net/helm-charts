@@ -1,4 +1,4 @@
-# Kalavai client
+# Kalavai API
 
 Client components to interact with a kalavai pool
 

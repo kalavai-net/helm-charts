@@ -1,6 +1,7 @@
 releaseName:
 
 bridge:
+  nodeSelector: null
   image_tag: latest
   enabled: true
   watcher_api_url: localhost:30000
