@@ -1,14 +1,5 @@
 releaseName:
 
-frontend:
-  image_tag: latest
-  enabled: true
-  external_bridge_api_url: null
-  external_bridge_api_port: null
-  access_key: null
-  cpus: 1
-  memory: 2048Mi
-
 bridge:
   image_tag: latest
   enabled: true

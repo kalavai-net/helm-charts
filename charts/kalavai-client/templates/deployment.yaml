@@ -14,45 +14,6 @@ spec:
         app: {{ .Release.Name}}-{{ .Chart.Name }}
     spec:
       containers:
-      {{ if .Values.frontend.enabled }}
-      - name: gui
-        image: kalavai/kalavai-gui:{{ .Values.frontend.image_tag }}
-        imagePullPolicy: "IfNotPresent"
-        command: ["/bin/sh", "-c"]
-        args:
-        - |
-          reflex run \
-            --backend-port 8001 \
-            --frontend-port 3000 \
-            --loglevel debug
-        ports:
-        - containerPort: 3000
-        - containerPort: 8001
-        env:
-        {{ if .Values.bridge.enabled }}
-        - name: KALAVAI_BRIDGE_URL
-          value: "http://{{ .Release.Name}}-{{ .Chart.Name }}-service.{{ .Release.Namespace }}.svc.cluster.local"
-        - name: KALAVAI_BRIDGE_PORT
-          value: "8000"
-        {{ else }}
-        - name: KALAVAI_BRIDGE_URL
-          value: "{{ .Values.frontend.external_bridge_api_url }}"
-        - name: KALAVAI_BRIDGE_PORT
-          value: "{{ .Values.frontend.external_bridge_api_port }}"
-        {{ end }}
-        {{ if .Values.frontend.access_key }}
-        - name: ACCESS_KEY
-          value: "{{ .Values.frontend.access_key }}"
-        {{ end }}
-        resources:
-          requests:
-            cpu: {{ .Values.frontend.cpus}}
-            memory: {{ .Values.frontend.memory}}
-          limits:
-            cpu: {{ .Values.frontend.cpus}}
-            memory: {{ .Values.frontend.memory}}
-      {{ end }}
-      {{ if .Values.bridge.enabled }}
       - name: bridge
         image: kalavai/kalavai-client:{{ .Values.bridge.image_tag }}
         imagePullPolicy: "IfNotPresent"
@@ -74,5 +35,4 @@ spec:
           limits:
             cpu: {{ .Values.bridge.cpus}}
             memory: {{ .Values.bridge.memory}}
-      {{ end }}
     
