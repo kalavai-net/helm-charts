@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: {{ .Release.Name}}-{{ .Chart.Name }}-service
   namespace: {{ .Release.Namespace }}
+  {{ if .Values.bridge.labels }}
+  labels:
+    {{ .values.bridge.labels }}
+  {{ end }}
 spec:
   type: NodePort
   ports:

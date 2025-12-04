@@ -1,10 +1,13 @@
 releaseName:
 
 bridge:
+  replicas: 1
   nodeSelector: null
+  labels:
+    name: kalavai-api
   image_tag: latest
   enabled: true
   watcher_api_url: localhost:30000
   watcher_api_key: api_key_here
-  cpus: 0.35
+  cpus: 0.33
   memory: 256Mi

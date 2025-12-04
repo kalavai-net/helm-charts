@@ -21,9 +21,9 @@ service:
 
 resources:
   requests:
-    cpus: 1
-    memory: 0.5
+    cpus: 0.5
+    memory: 256Mi
   limits:
-    cpus: 2
-    memory: 2
+    cpus: 1
+    memory: 512Mi
     
