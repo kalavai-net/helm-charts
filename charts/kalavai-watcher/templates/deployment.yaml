@@ -59,8 +59,8 @@ spec:
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpus }}
-            memory: {{ .Values.resources.requests.memory }}Gi
+            memory: {{ .Values.resources.requests.memory }}
           limits:
             cpu: {{ .Values.resources.limits.cpus }}
-            memory: {{ .Values.resources.limits.memory }}Gi
+            memory: {{ .Values.resources.limits.memory }}
       serviceAccountName: api-service-account  # Service account with cluster permissions
