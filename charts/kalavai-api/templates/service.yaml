@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   {{ if .Values.bridge.labels }}
   labels:
-    {{ .values.bridge.labels }}
+    {{ .Values.bridge.labels }}
   {{ end }}
 spec:
   type: NodePort

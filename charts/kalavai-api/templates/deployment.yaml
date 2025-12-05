@@ -5,10 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   {{ if .Values.bridge.labels }}
   labels:
-    {{ .values.bridge.labels }}
+    {{ .Values.bridge.labels }}
   {{ end }}
 spec:
-  replicas: {{ .values.bridge.replicas }}
+  replicas: {{ .Values.bridge.replicas }}
   selector:
     matchLabels:
       app: {{ .Release.Name}}-{{ .Chart.Name }}
