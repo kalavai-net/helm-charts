@@ -17,7 +17,7 @@ deployment:
   longhorn_manager_endpoint: "longhorn-backend.kalavai.svc.cluster.local:9500"
 
 service:
-  nodePort: 31000
+  nodePort: null
 
 resources:
   requests:

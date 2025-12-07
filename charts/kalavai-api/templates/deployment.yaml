@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name}}-{{ .Chart.Name }}
+  name: {{ .Release.Name}}-app
   namespace: {{ .Release.Namespace }}
   {{- if .Values.bridge.labels }}
   labels:
@@ -11,11 +11,11 @@ spec:
   replicas: {{ .Values.bridge.replicas }}
   selector:
     matchLabels:
-      app: {{ .Release.Name}}-{{ .Chart.Name }}
+      app: {{ .Release.Name}}-app
   template:
     metadata:
       labels:
-        app: {{ .Release.Name}}-{{ .Chart.Name }}
+        app: {{ .Release.Name}}-app
     spec:
     {{ if .Values.bridge.nodeSelector }}
       nodeSelector:
