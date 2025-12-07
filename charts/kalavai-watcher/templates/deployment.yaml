@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kube-watcher-api
+  name: {{ .Release.Name }}-app
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.deployment.replicas }} # ensure there is minimal downtime if node goes down
   selector:
     matchLabels:
-      app: kube-watcher-api
+      app: {{ .Release.Name }}-api
   template:
     metadata:
       labels:
-        app: kube-watcher-api
+        app: {{ .Release.Name }}-api
     spec:
     {{ if .Values.deployment.nodeSelector }}
       nodeSelector:
