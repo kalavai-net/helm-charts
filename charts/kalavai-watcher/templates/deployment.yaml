@@ -7,11 +7,11 @@ spec:
   replicas: {{ .Values.deployment.replicas }} # ensure there is minimal downtime if node goes down
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-api
+      app: {{ .Release.Name }}-app
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-api
+        app: {{ .Release.Name }}-app
     spec:
     {{ if .Values.deployment.nodeSelector }}
       nodeSelector:
