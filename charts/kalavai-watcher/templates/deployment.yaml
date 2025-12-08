@@ -40,8 +40,8 @@ spec:
           value: {{ .Values.deployment.readonly_key }}
         - name: IS_SHARED_POOL
           value: "{{ .Values.deployment.is_shared_pool }}"
-        - name: ALLOW_UNREGISTERED_USER
-          value: "{{ .Values.deployment.allow_unregistered_user }}"
+        - name: STATIC_WORKSPACE
+          value: "{{ .Values.deployment.static_workspace }}"
         - name: KALAVAI_API_ENDPOINT
           value: {{ .Values.deployment.kalavai_api_endpoint }}
         - name: PROMETHEUS_ENDPOINT
