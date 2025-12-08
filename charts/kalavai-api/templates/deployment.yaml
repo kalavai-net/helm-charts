@@ -17,7 +17,7 @@ spec:
       labels:
         app: {{ .Release.Name}}-app
         {{- if .Values.bridge.labels }}
-          {{- toYaml .Values.bridge.labels | nindent 10 }}
+        {{- toYaml .Values.bridge.labels | nindent 8 }}
         {{- end }}
     spec:
     {{ if .Values.bridge.nodeSelector }}
