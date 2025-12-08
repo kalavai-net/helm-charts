@@ -19,6 +19,7 @@ rules:
         - batch.volcano.sh
         - datashim.io
         - scheduling.k8s.io
+        - helm.toolkit.fluxcd.io
     resources:
       - pods
       - componentstatuses
@@ -27,6 +28,7 @@ rules:
       - deployments
       - events
       - endpoints
+      - helmreleases
       - horizontalpodautoscalers
       - ingresses
       - limitranges
