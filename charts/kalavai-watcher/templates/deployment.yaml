@@ -16,6 +16,9 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}-app
+        {{- if .Values.labels }}
+          {{- toYaml .Values.labels | nindent 10 }}
+        {{- end }}
     spec:
     {{ if .Values.deployment.nodeSelector }}
       nodeSelector:
