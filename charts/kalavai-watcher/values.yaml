@@ -16,6 +16,8 @@ deployment:
   opencost_endpoint: "opencost.opencost.svc.cluster.local:9003"
   longhorn_manager_endpoint: "longhorn-backend.kalavai.svc.cluster.local:9500"
 
+labels: null
+
 service:
   type: NodePort
   nodePort: null

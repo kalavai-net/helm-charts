@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-service
   namespace: {{ .Release.Namespace }}
+  {{- if .Values.labels }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:

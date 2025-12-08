@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-app
   namespace: {{ .Release.Namespace }}
+  {{- if .Values.labels }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.deployment.replicas }} # ensure there is minimal downtime if node goes down
   selector:
