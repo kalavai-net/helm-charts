@@ -47,8 +47,10 @@ spec:
           value: {{ .Values.deployment.readonly_key }}
         - name: IS_SHARED_POOL
           value: "{{ .Values.deployment.is_shared_pool }}"
+        {{- if .Values.deployment.static_workspace }}
         - name: STATIC_WORKSPACE
           value: "{{ .Values.deployment.static_workspace }}"
+        {{- end }}
         - name: KALAVAI_API_ENDPOINT
           value: {{ .Values.deployment.kalavai_api_endpoint }}
         - name: PROMETHEUS_ENDPOINT
