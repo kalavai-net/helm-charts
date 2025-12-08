@@ -11,3 +11,6 @@ bridge:
   watcher_api_key: api_key_here
   cpus: 0.33
   memory: 256Mi
+
+  service:
+    type: NodePort

@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-service
   namespace: {{ .Release.Namespace }}
 spec:
-  type: NodePort
+  type: {{ .Values.service.type }}
   ports:
   - port: 8000
     targetPort: 8000
