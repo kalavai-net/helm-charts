@@ -53,6 +53,7 @@ rules:
       - pods/eviction
       - rayclusters
       - rayclusters/status
+      - rayservices
       - vcjob
       - vcjob/status
       - jobs
