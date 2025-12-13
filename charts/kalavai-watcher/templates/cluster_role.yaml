@@ -20,6 +20,7 @@ rules:
         - datashim.io
         - scheduling.k8s.io
         - helm.toolkit.fluxcd.io
+        - source.toolkit.fluxcd.io
     resources:
       - pods
       - componentstatuses
@@ -29,6 +30,7 @@ rules:
       - events
       - endpoints
       - helmreleases
+      - helmrepositories
       - horizontalpodautoscalers
       - ingresses
       - limitranges
