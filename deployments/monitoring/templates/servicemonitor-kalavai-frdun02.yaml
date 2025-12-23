@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: servicemonitor-kalavai-frdun02
+  labels:
+    geo: kalavai-frdun02
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-node-exporter
+      geo: kalavai-frdun02
+  namespaceSelector:
+    matchNames:
+      - mon
+  endpoints:
+    - port: http-metrics
+      relabelings:
+        - targetLabel: job
+          replacement: node-exporter
+        - targetLabel: cluster
+          replacement: kalavai
+  sampleLimit: 5000

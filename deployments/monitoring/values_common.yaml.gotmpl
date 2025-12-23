@@ -1,114 +1,180 @@
 {{ $prometheus_fullname := "mon-prometheus-server" }}
+
+{{- $monitoringTolerations := list (dict "effect" "NoSchedule" "key" "monitoring-workload" "value" "central") }}
+{{- $monitoringNodeSelector := dict "monitoring-master" "true" }}
+{{- $nodePlacement := dict "tolerations" $monitoringTolerations "nodeSelector" $monitoringNodeSelector }}
 ---
-prometheus:
-  enabled: true
-  server:
-  #  ingress:
-  #    enabled: true
-  #    ingressClassName: traefik
-    tolerations:
-    - key: "monitoring"
-      operator: "Equal"
-      value: "true"
-      effect: "NoSchedule"
+#############################################################################################
+## Prometheus
+#############################################################################################
 
-    nodeSelector:
-      monitoring: "true"
-
-    global:
-      scrape_interval: 15s
-  prometheus-node-exporter:
-    enabled: true
-    hostRootFsMount:
+kube-prometheus-stack:
+    alertmanager:
       enabled: false
-    extraArgs:
-    - --path.rootfs=/hostroot
-    - --path.udev.data=/hostroot/run/udev/data
-    extraHostVolumeMounts:
-    - hostPath: /hostroot
-      type:
-      readOnly: false
-      mountPath: /hostroot
-      name: hostrootfs
-      mountPropagation: HostToContainer
 
-grafana:
+    prometheus:
+      enabled: false
+
+    crds:
+      enabled: true
+      upgradeJob:
+        enabled: true
+
+    prometheus-alert-manager:
+      enabled: false
+
+    prometheus-node-exporter:
+      enabled: true
+      service:
+        enabled: false
+      hostRootFsMount:
+        enabled: false
+      extraArgs:
+      - --path.rootfs=/hostroot
+      - --path.udev.data=/hostroot/run/udev/data
+      extraHostVolumeMounts:
+      - hostPath: /hostroot
+        type:
+        readOnly: false
+        mountPath: /hostroot
+        name: hostrootfs
+        mountPropagation: HostToContainer
+
+    kubelet:
+      serviceMonitor:
+        additionalLabels:
+          geo: kalavai-frdun02
+
+    grafana:
+      enabled: true
+
+      nodeSelector:
+        {{- $monitoringNodeSelector | toYaml | nindent 8 }}          
+      tolerations:
+      {{- $monitoringTolerations | toYaml | nindent 6 }}
+
+      datasources:
+        datasources.yaml:
+          apiVersion: 1
+          datasources:
+          - name: Prometheus
+            isDefault: true
+            type: prometheus
+            url: http://mon-mimir-query-frontend:8080/prometheus
+            jsonData:
+              httpHeaderName1: 'X-Scope-OrgID'
+            secureJsonData:
+              httpHeaderValue1: '0'
+
+#############################################################################################
+## Mimir
+#############################################################################################
+
+mimir-distributed:
   enabled: true
 
-  adminUser: admin
-  adminPassword: KalavaiGraf
+  global:
+    extraEnvFrom:
+      - secretRef:
+          name: mimir-s3-credentials
 
-  ingress:
-    enabled: true
-    path: /
-    pathType: Prefix
-    hosts:
-      - chart-example.local
-  nodeSelector:
-      monitoring-master: "true"
-  tolerations:
-  - key: "monitoring-master"
-    operator: "Equal"
-    value: "true"
-    effect: "NoSchedule"
+  mimir:
+    structuredConfig:
+      blocks_storage:
+        backend: s3
+        s3:
+          bucket_name: monitoring-mimir-blocks
+          endpoint: s3.fr-par.scw.cloud
+          access_key_id: SCWHJA014DFWBD2K84AQ
+          secret_access_key: 790eb6eb-434e-431b-8728-df2bc5f3fe5d
 
-  datasources:
-    datasources.yaml:
-      apiVersion: 1
-      datasources:
-      - name: Prometheus
-        type: prometheus
-        url: http://{{ $prometheus_fullname }}
-  dashboards:
-    default:
-      Node-exporter:
-        # Ref: https://grafana.com/dashboards/1860
-        gnetId: 1860
-        revision: 33
-        datasource: Prometheus
-      Kubernetes-Nodes:
-        # Ref: https://grafana.com/dashboards/8171
-        gnetId: 8171
-        revision: 1
-        datasource: Prometheus
-      Kubernetes-Deployment-Statefulset-Daemonset-metrics:
-        # Ref: https://grafana.com/dashboards/8588
-        gnetId: 8588
-        revision: 1
-        datasource: Prometheus
-      k8s-views-global:
-        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
-        token: ''
-      k8s-views-namespaces:
-        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
-        token: ''
-      k8s-views-nodes:
-        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
-        token: ''
-      k8s-views-pods:
-        url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
-        token: ''
-      nvidia-gpu:
-        gnetId: 12239
-        revision: 2
-        datasource: Prometheus
-  dashboardProviders:
-    dashboardproviders.yaml:
-      apiVersion: 1
-      providers:
-      - name: 'default'
-        orgId: 1
-        folder: ''
-        type: file
-        disableDeletion: false
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/default
+      alertmanager_storage:
+        backend: s3
+        s3:
+          bucket_name: monitoring-mimir-alertmanager
+          endpoint: s3.fr-par.scw.cloud
+          access_key_id: SCWHJA014DFWBD2K84AQ
+          secret_access_key: 790eb6eb-434e-431b-8728-df2bc5f3fe5d
 
-#  resources: {}
-#  #  limits:
-#  #    cpu: 100m
-#  #    memory: 128Mi
-#  #  requests:
-#  #    cpu: 100m
-#  #    memory: 128Mi
+      ruler_storage:
+        backend: s3
+        s3:
+          bucket_name: monitoring-mimir-ruler
+          endpoint: s3.fr-par.scw.cloud
+          access_key_id: SCWHJA014DFWBD2K84AQ
+          secret_access_key: 790eb6eb-434e-431b-8728-df2bc5f3fe5d
+
+  alertmanager:
+    statefulSet:
+      enabled: false
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  distributor:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  ingester:
+    zoneAwareReplication:
+      enabled: false
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  overrides_exporter:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  ruler:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  ruler_querier:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  ruler_query_frontend:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  ruler_query_scheduler:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  querier:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  query_frontend:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  query_scheduler:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  store_gateway:
+    zoneAwareReplication:
+      enabled: false
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  compactor:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  kafka:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  chunks-cache:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  index-cache:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  metadata-cache:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  results-cache:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  rollout_operator:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  gateway:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  metaMonitoring:
+    {{- toYaml $nodePlacement | nindent 4 }}
+
+  minio:
+    enabled: false
+
+cadvisor:
+  enabled: false

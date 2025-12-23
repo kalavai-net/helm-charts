@@ -1,6 +1,9 @@
 dependencies:
-- name: grafana
+- name: mimir-distributed
   repository: https://grafana.github.io/helm-charts
-  version: 10.1.4
-digest: sha256:7605e468ea58a1e220a835098fc34f272e9fcba679daa60815fb66d1c973013d
-generated: "2025-11-06T17:45:04.863297088-05:00"
+  version: 6.0.5
+- name: cadvisor
+  repository: https://ckotzbauer.github.io/helm-charts
+  version: 2.4.1
+digest: sha256:3b5ef749d85b13636050d908cd087a07e9b90c3989acbca61b69d749ce72340a
+generated: "2025-12-22T10:03:19.139356191-05:00"

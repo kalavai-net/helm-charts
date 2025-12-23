@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: "true"
+  labels:
+    geo: kalavai-frdun02
+    app.kubernetes.io/name: prometheus-node-exporter
+  name: mon-prometheus-node-exporter-kalavai-frdun02
+  namespace: mon
+spec:
+  ports:
+    - name: http-metrics
+      port: 9100
+      protocol: TCP
+      targetPort: 9100
+  selector:
+    app.kubernetes.io/instance: mon
+    app.kubernetes.io/name: prometheus-node-exporter
+    geo: kalavai-frdun02
+  sessionAffinity: None
+  type: ClusterIP
