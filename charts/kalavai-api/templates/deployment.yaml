@@ -41,6 +41,10 @@ spec:
           value: "{{ .Values.bridge.watcher_api_url }}"
         - name: WATCHER_API_KEY
           value: "{{ .Values.bridge.watcher_api_key }}"
+        {{ if .Values.forced_namespace }}
+        - name: FORCED_USER_SPACE_NAME
+          value: "{{ .Values.forced_namespace }}"
+        {{ end }}
         resources:
           requests:
             cpu: {{ .Values.bridge.cpus}}

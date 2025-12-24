@@ -1,5 +1,7 @@
 releaseName:
 
+forced_namespace: null
+
 bridge:
   replicas: 1
   nodeSelector: null
