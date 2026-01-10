@@ -21,6 +21,7 @@ rules:
         - scheduling.k8s.io
         - helm.toolkit.fluxcd.io
         - source.toolkit.fluxcd.io
+        - kalavai.net
     resources:
       - pods
       - componentstatuses
@@ -33,6 +34,7 @@ rules:
       - helmrepositories
       - horizontalpodautoscalers
       - ingresses
+      - kalavaijobs
       - limitranges
       - namespaces
       - nodes
