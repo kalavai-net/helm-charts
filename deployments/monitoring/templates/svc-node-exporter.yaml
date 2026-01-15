@@ -1,12 +1,16 @@
+{{- $root := . }}
+{{- range .Values.global.projectLabels }}
+{{- range $project, $labels := . }}
+---
 apiVersion: v1
 kind: Service
 metadata:
   annotations:
     prometheus.io/scrape: "true"
   labels:
-    geo: kalavai-frdun02
     app.kubernetes.io/name: prometheus-node-exporter
-  name: mon-prometheus-node-exporter-kalavai-frdun02
+    {{- $labels | toYaml | nindent 4 }}
+  name: mon-prometheus-node-exporter-{{ $project }}
   namespace: mon
 spec:
   ports:
@@ -15,8 +19,10 @@ spec:
       protocol: TCP
       targetPort: 9100
   selector:
-    app.kubernetes.io/instance: mon
+    app.kubernetes.io/instance: {{ $root.Release.Name }}
     app.kubernetes.io/name: prometheus-node-exporter
-    geo: kalavai-frdun02
+    {{- $labels | toYaml | nindent 4 }}
   sessionAffinity: None
   type: ClusterIP
+{{- end }}
+{{- end }}

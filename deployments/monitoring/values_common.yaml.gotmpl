@@ -1,12 +1,33 @@
-{{ $prometheus_fullname := "mon-prometheus-server" }}
-
 {{- $monitoringTolerations := list (dict "effect" "NoSchedule" "key" "monitoring-workload" "value" "central") }}
 {{- $monitoringNodeSelector := dict "monitoring-master" "true" }}
 {{- $nodePlacement := dict "tolerations" $monitoringTolerations "nodeSelector" $monitoringNodeSelector }}
+{{- $mimirName := "mimir" }}
+{{- $mimirPort := "8080" }}
+{{- $s3_credentials_secret :=  "mimir-s3-credentials" }}
+{{- $projectLabelKey := "geo" }}
+{{- $centralProjectName := "central" }}
 ---
 #############################################################################################
 ## Prometheus
 #############################################################################################
+global:
+  s3:
+    secretName: {{ $s3_credentials_secret }}
+    access_key: {{ .Values.secrets.s3.access_key }}
+    secret_key: {{ .Values.secrets.s3.secret_key }}
+  projects: 
+  {{- .Values.projects | toYaml | nindent 2 }}
+  projectLabels:
+  {{- range $project := .Values.projects }}
+  - {{ $project }}:
+      {{ $projectLabelKey }}: {{ $project }}
+  {{- end }}
+  prometheus:
+    version: v3.8.1
+    remoteWrite:
+    - url: http://{{ printf "%s-%s-distributor:%s" .Release.Name  $mimirName $mimirPort }}/api/v1/push
+      headers:
+        "X-Scope-OrgID": "0"
 
 kube-prometheus-stack:
     alertmanager:
@@ -45,8 +66,51 @@ kube-prometheus-stack:
         additionalLabels:
           geo: kalavai-frdun02
 
+    kube-state-metrics:
+      customLabels:
+        geo: kalavai-frdun02
+
+    coreDns:
+      serviceMonitor:
+        additionalLabels :
+          monitoring-master: "true"
+
+    kubeApiServer:
+      serviceMonitor:
+        additionalLabels :
+          monitoring-master: "true"
+
+    kubeControllerManager:
+      serviceMonitor:
+        additionalLabels :
+          monitoring-master: "true"
+
+    kubeProxy:
+      serviceMonitor:
+        additionalLabels :
+          monitoring-master: "true"
+
+    kubeScheduler:
+      serviceMonitor:
+        additionalLabels :
+          monitoring-master: "true"
+
+    prometheusOperator:
+      serviceMonitor:
+        additionalLabels :
+          monitoring-master: "true"
+
     grafana:
       enabled: true
+      admin:
+        existingSecret: {{ .Release.Name }}-grafana
+        username: {{ .Values.secrets.grafana_admin_username }}
+        password: {{ .Values.secrets.grafana_admin_password }}
+
+      serviceMonitor:
+        labels:
+          monitoring-master: "true"
+
 
       nodeSelector:
         {{- $monitoringNodeSelector | toYaml | nindent 8 }}          
@@ -76,10 +140,13 @@ mimir-distributed:
   global:
     extraEnvFrom:
       - secretRef:
-          name: mimir-s3-credentials
+          name: {{ $s3_credentials_secret }}
 
   mimir:
+    fullnameOverride: {{ $mimirName }}
     structuredConfig:
+      server:
+        http_listen_port: {{ $mimirPort }}
       blocks_storage:
         backend: s3
         s3:
@@ -178,3 +245,5 @@ mimir-distributed:
 
 cadvisor:
   enabled: false
+
+

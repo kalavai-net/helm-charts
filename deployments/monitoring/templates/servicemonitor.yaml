@@ -1,17 +1,22 @@
+{{- $root := . }}
+{{- if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" }}
+{{- range .Values.global.projectLabels }}
+{{- range $project, $labels := . }}
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: servicemonitor-kalavai-frdun02
+  name: servicemonitor-{{ $project }}
   labels:
-    geo: kalavai-frdun02
+    {{- $labels | toYaml | nindent 4 }}
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: prometheus-node-exporter
-      geo: kalavai-frdun02
+      {{- $labels | toYaml | nindent 6 }}
   namespaceSelector:
     matchNames:
-      - mon
+      - {{ $root.Release.Namespace }}
   endpoints:
     - port: http-metrics
       relabelings:
@@ -20,3 +25,6 @@ spec:
         - targetLabel: cluster
           replacement: kalavai
   sampleLimit: 5000
+{{- end }}
+{{- end }}
+{{- end }}

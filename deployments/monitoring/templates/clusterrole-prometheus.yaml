@@ -1,0 +1,39 @@
+{{- if hasKey .Values.global "prometheus" }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus-scraper
+rules:
+  # Rules for Service Discovery: Scrape services/endpoints/pods
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - services
+      - endpoints
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+  # Optional: For scraping the Kubelet on nodes/metrics
+  - apiGroups: [""]
+    resources:
+      - nodes/metrics
+      - nodes/proxy
+    verbs:
+      - get
+      - list
+      - watch
+  # Optional: For reading ConfigMaps (e.g., if you use additional scrape configs)
+  - apiGroups: [""]
+    resources:
+      - configmaps
+    verbs:
+      - get
+
+  - nonResourceURLs:
+    - /metrics
+    verbs:
+    - get
+{{- end }}

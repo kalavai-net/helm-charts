@@ -7,12 +7,12 @@ repositories:
   url:  https://prometheus-community.github.io/helm-charts 
 
 environments:
-#  {{ .Environment.Name }}:
-#    values:
-#    - env/{{ .Environment.Name }}/values.yaml
-#    secrets:
-#    - env/{{ .Environment.Name }}/secrets.yaml
-#
+  {{ .Environment.Name }}:
+    values:
+    - env/{{ .Environment.Name }}/values.yaml
+    secrets:
+    - env/{{ .Environment.Name }}/secrets.yaml
+
 ---
 releases:
 - name: mon

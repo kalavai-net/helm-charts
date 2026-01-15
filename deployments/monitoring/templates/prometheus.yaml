@@ -1,0 +1,41 @@
+{{- $root := . }}
+{{- if hasKey .Values.global "prometheus" }}
+{{- range .Values.global.projectLabels }}
+{{- range $project, $labels := . }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus-{{ $project }}
+  namespace: {{ $root.Release.Name }}
+  labels:
+    {{- $labels | toYaml | nindent 4 }}
+spec:
+  replicas: 1
+  serviceMonitorSelector:
+    matchLabels:
+      {{- $labels | toYaml | nindent 6 }}
+  podMetadata:
+    labels:
+      {{- $labels | toYaml | nindent 6 }}
+  nodeSelector:
+    {{- $labels | toYaml | nindent 4 }}
+    monitoring: "true"
+  ruleSelector: {}
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: 500m
+  serviceAccountName: {{ include "prometheus_serviceaccount_name" . }}
+  {{- if hasKey $root.Values.global.prometheus "storage" }}
+  storage:
+    {{-  $root.Values.global.prometheus.storage | toYaml | nindent 4 }}
+  {{- end }}
+  version: {{ $root.Values.global.prometheus.version }}
+  {{- if hasKey $root.Values.global.prometheus "remoteWrite" }}
+  remoteWrite:
+  {{-  $root.Values.global.prometheus.remoteWrite | toYaml | nindent 2 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
