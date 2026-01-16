@@ -64,11 +64,13 @@ kube-prometheus-stack:
     kubelet:
       serviceMonitor:
         additionalLabels:
-          geo: kalavai-frdun02
+#          geo: kalavai-frdun02
+          monitoring-master: "true"
 
     kube-state-metrics:
       customLabels:
-        geo: kalavai-frdun02
+        # geo: kalavai-frdun02
+        monitoring-master: "true"
 
     coreDns:
       serviceMonitor:
