@@ -28,7 +28,7 @@ spec:
     {{ end }}
       containers:
       - name: bridge
-        image: kalavai/kalavai-client:{{ .Values.bridge.image_tag }}
+        image: ghcr.io/kalavai-net/kalavai-client:{{ .Values.bridge.image_tag }}
         imagePullPolicy: "IfNotPresent"
         command: ["/bin/sh", "-c"]
         args:
