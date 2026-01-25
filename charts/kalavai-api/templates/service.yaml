@@ -10,7 +10,7 @@ metadata:
 spec:
   type: {{ .Values.bridge.service.type }}
   ports:
-  - name: backend-port
+  - name: main
     port: 8000
     targetPort: 8000
   selector:

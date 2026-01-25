@@ -10,7 +10,8 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: 8000
+  - name: main
+    port: 8000
     targetPort: 8000
   {{ if .Values.service.nodePort }}
     nodePort: {{ .Values.service.nodePort }}
