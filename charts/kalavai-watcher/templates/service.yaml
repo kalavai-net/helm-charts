@@ -10,7 +10,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - name: main
+  - name: watcher-main
     port: 8000
     targetPort: 8000
   {{ if .Values.service.nodePort }}

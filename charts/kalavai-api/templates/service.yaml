@@ -10,7 +10,7 @@ metadata:
 spec:
   type: {{ .Values.bridge.service.type }}
   ports:
-  - name: main
+  - name: api-main
     port: 8000
     targetPort: 8000
   selector:
