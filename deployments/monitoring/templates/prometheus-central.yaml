@@ -9,21 +9,19 @@ metadata:
   name: prometheus-central
   namespace: mon
   labels:
-    monitoring-master: "true"
+    {{- $root.Values.global.centralProjectLabels | toYaml | nindent 4 }}
 spec:
   replicas: 1
   serviceMonitorSelector:
     matchLabels:
-      monitoring-master: "true"
+      {{- $root.Values.global.centralProjectLabels | toYaml | nindent 6 }}
   podMetadata:
     labels:
-      monitoring-master: "true"
+      {{- $root.Values.global.centralProjectLabels | toYaml | nindent 6 }}
   nodeSelector:
-    monitoring-master: "true"
+    {{- $root.Values.global.centralProjectLabels | toYaml | nindent 4 }}
   tolerations:
-  - effect: NoSchedule
-    key: monitoring-workload
-    value: central
+  {{- $root.Values.global.centralMonitoringTolerations | toYaml | nindent 2 }}
   ruleSelector: {}
   resources:
     requests:

@@ -19,7 +19,7 @@ releases:
   namespace: mon
   createNamespace: true
 
-  kubeContext: {{ default "k3s" (env "KUBE_CONTEXT") }}
+  kubeContext: {{ default (printf "k3s-%s" .Environment.Name) (env "KUBE_CONTEXT") }}
 
   # Perform clean up when ran by automated ci/cd pipline. Skip clean up for manual deployment
   # allowing for troubleshooting

@@ -10,7 +10,7 @@ metadata:
   labels:
     app.kubernetes.io/name: prometheus-node-exporter
     {{- $labels | toYaml | nindent 4 }}
-  name: {{ .Release.Name }}-prometheus-node-exporter-{{ $project }}
+  name: {{ $root.Release.Name }}-prometheus-node-exporter-{{ $project }}
 spec:
   ports:
     - name: http-metrics

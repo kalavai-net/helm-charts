@@ -1,11 +1,12 @@
-{{- $monitoringTolerations := list (dict "effect" "NoSchedule" "key" "monitoring-workload" "value" "central") }}
-{{- $monitoringNodeSelector := dict "monitoring-master" "true" }}
+{{- $centralProjectName := "central" }}
+{{- $monitoringTolerations := list (dict "effect" "NoSchedule" "key" "workload-type" "value" "monitoring") }}
+{{- $monitoringNodeSelector := dict "location" $centralProjectName "nodeworkloadtype" "monitoring" }}
 {{- $nodePlacement := dict "tolerations" $monitoringTolerations "nodeSelector" $monitoringNodeSelector }}
 {{- $mimirName := "mimir" }}
 {{- $mimirPort := "8080" }}
 {{- $s3_credentials_secret :=  "mimir-s3-credentials" }}
-{{- $projectLabelKey := "geo" }}
-{{- $centralProjectName := "central" }}
+{{- $projectLabelKey := "location" }}
+{{- $centralProjectSelectionLabels := dict $projectLabelKey $centralProjectName }}
 ---
 #############################################################################################
 ## Prometheus
@@ -17,6 +18,10 @@ global:
     secret_key: {{ .Values.secrets.s3.secret_key }}
   projects: 
   {{- .Values.projects | toYaml | nindent 2 }}
+  centralProjectLabels:
+    {{- $centralProjectSelectionLabels | toYaml | nindent 4 }}
+  centralMonitoringTolerations:
+  {{- $monitoringTolerations | toYaml | nindent 6 }}
   projectLabels:
   {{- range $project := .Values.projects }}
   - {{ $project }}:
@@ -64,43 +69,41 @@ kube-prometheus-stack:
     kubelet:
       serviceMonitor:
         additionalLabels:
-#          geo: kalavai-frdun02
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
     kube-state-metrics:
       customLabels:
-        # geo: kalavai-frdun02
-        monitoring-master: "true"
+        {{- $centralProjectSelectionLabels | toYaml | nindent 8 }}
 
     coreDns:
       serviceMonitor:
         additionalLabels :
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
     kubeApiServer:
       serviceMonitor:
         additionalLabels :
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
     kubeControllerManager:
       serviceMonitor:
         additionalLabels :
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
     kubeProxy:
       serviceMonitor:
         additionalLabels :
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
     kubeScheduler:
       serviceMonitor:
         additionalLabels :
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
     prometheusOperator:
       serviceMonitor:
         additionalLabels :
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
     grafana:
       enabled: true
@@ -111,7 +114,7 @@ kube-prometheus-stack:
 
       serviceMonitor:
         labels:
-          monitoring-master: "true"
+          {{- $centralProjectSelectionLabels | toYaml | nindent 10 }}
 
 
       nodeSelector:
@@ -124,7 +127,6 @@ kube-prometheus-stack:
           apiVersion: 1
           datasources:
           - name: Prometheus
-            isDefault: true
             type: prometheus
             url: http://mon-mimir-query-frontend:8080/prometheus
             jsonData:
