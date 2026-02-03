@@ -1,11 +1,11 @@
+{{- $projectLabelKey := "kalavai.provider.location" }}
 {{- $centralProjectName := "central" }}
 {{- $monitoringTolerations := list (dict "effect" "NoSchedule" "key" "workload-type" "value" "monitoring") }}
-{{- $monitoringNodeSelector := dict "location" $centralProjectName "nodeworkloadtype" "monitoring" }}
+{{- $monitoringNodeSelector := dict $projectLabelKey $centralProjectName "nodeworkloadtype" "monitoring" }}
 {{- $nodePlacement := dict "tolerations" $monitoringTolerations "nodeSelector" $monitoringNodeSelector }}
 {{- $mimirName := "mimir" }}
 {{- $mimirPort := "8080" }}
 {{- $s3_credentials_secret :=  "mimir-s3-credentials" }}
-{{- $projectLabelKey := "location" }}
 {{- $centralProjectSelectionLabels := dict $projectLabelKey $centralProjectName }}
 ---
 #############################################################################################
