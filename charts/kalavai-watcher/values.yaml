@@ -1,19 +1,19 @@
-image_tag: latest
+imageTag: latest
 
 deployment:
   nodeSelector: null
-  in_cluster: "True"
-  kalavai_username_key: "kalavai.cluster.user"
+  inCluster: "True"
+  kalavaiUsernameKey: "kalavai.cluster.user"
   replicas: 1
-  use_auth_key: "True"
-  admin_key: "somerandomkey"
-  readonly_key: "anotherkey"
-  write_key: "anotherkey2"
-  is_shared_pool: "True"
-  static_workspace: null
-  kalavai_api_endpoint: "https://platform.kalavai.net/_/api"
-  prometheus_endpoint: "prometheus-server.prometheus-system.svc.cluster.local:80"
-  opencost_endpoint: "opencost.opencost.svc.cluster.local:9003"
+  useAuthKey: "True"
+  adminKey: "somerandomkey"
+  readonlyKey: "anotherkey"
+  writeKey: "anotherkey2"
+  isSharedPool: "True"
+  staticWorkspace: null
+  kalavaiApiEndpoint: "https://platform.kalavai.net/_/api"
+  prometheusEndpoint: "prometheus-server.prometheus-system.svc.cluster.local:80"
+  opencostEndpoint: "opencost.opencost.svc.cluster.local:9003"
   longhorn_manager_endpoint: "longhorn-backend.kalavai.svc.cluster.local:9500"
 
 labels: null

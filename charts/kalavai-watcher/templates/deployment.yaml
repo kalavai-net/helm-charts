@@ -28,37 +28,37 @@ spec:
     {{ end }}
       containers:
       - name: kube-watcher-api
-        image: ghcr.io/kalavai-net/kube-watcher:{{ .Values.image_tag }}
+        image: ghcr.io/kalavai-net/kube-watcher:{{ .Values.imageTag }}
         imagePullPolicy: "IfNotPresent"
         ports:
         - containerPort: 8000
         env:
         - name: IN_CLUSTER
-          value: "{{ .Values.deployment.in_cluster }}"
+          value: "{{ .Values.deployment.inCluster }}"
         - name: KALAVAI_USER_KEY
-          value: "{{ .Values.deployment.kalavai_username_key }}"
+          value: "{{ .Values.deployment.kalavaiUsernameKey }}"
         - name: KW_USE_AUTH
-          value: "{{ .Values.deployment.use_auth_key }}"
+          value: "{{ .Values.deployment.useAuthKey }}"
         - name: KW_ADMIN_KEY
-          value: {{ .Values.deployment.admin_key }}
+          value: {{ .Values.deployment.adminKey }}
         - name: KW_WRITE_KEY
-          value: {{ .Values.deployment.write_key }}
+          value: {{ .Values.deployment.writeKey }}
         - name: KW_READ_ONLY_KEY
-          value: {{ .Values.deployment.readonly_key }}
+          value: {{ .Values.deployment.readonlyKey }}
         - name: IS_SHARED_POOL
-          value: "{{ .Values.deployment.is_shared_pool }}"
-        {{- if .Values.deployment.static_workspace }}
+          value: "{{ .Values.deployment.isSharedPool }}"
+        {{- if .Values.deployment.staticWorkspace }}
         - name: STATIC_WORKSPACE
-          value: "{{ .Values.deployment.static_workspace }}"
+          value: "{{ .Values.deployment.staticWorkspace }}"
         {{- end }}
         - name: KALAVAI_API_ENDPOINT
-          value: {{ .Values.deployment.kalavai_api_endpoint }}
+          value: {{ .Values.deployment.kalavaiApiEndpoint }}
         - name: PROMETHEUS_ENDPOINT
-          value: {{ .Values.deployment.prometheus_endpoint }}
+          value: {{ .Values.deployment.prometheusEndpoint }}
         - name: OPENCOST_ENDPOINT
-          value: {{ .Values.deployment.opencost_endpoint }}
+          value: {{ .Values.deployment.opencostEndpoint }}
         - name: LONGHORN_MANAGER_ENDPOINT
-          value: {{ .Values.deployment.longhorn_manager_endpoint }}
+          value: {{ .Values.deployment.longhornManagerEndpoint }}
         livenessProbe:
           httpGet:
             path: /v1/health
