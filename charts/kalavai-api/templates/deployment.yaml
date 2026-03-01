@@ -28,7 +28,7 @@ spec:
     {{ end }}
       containers:
       - name: bridge
-        image: ghcr.io/kalavai-net/kalavai-client:{{ .Values.bridge.image_tag }}
+        image: ghcr.io/kalavai-net/kalavai-client:{{ .Values.bridge.imageTag }}
         imagePullPolicy: "IfNotPresent"
         command: ["/bin/sh", "-c"]
         args:
@@ -38,18 +38,18 @@ spec:
         - containerPort: 8000
         env:
         - name: WATCHER_API_URL
-          value: "{{ .Values.bridge.watcher_api_url }}"
+          value: "{{ .Values.bridge.watcherApiUrl }}"
         - name: WATCHER_API_KEY
-          value: "{{ .Values.bridge.watcher_api_key }}"
-        {{ if .Values.forced_namespace }}
+          value: "{{ .Values.bridge.watcherApiKey }}"
+        {{ if .Values.forcedNamespace }}
         - name: FORCED_USER_SPACE_NAME
-          value: "{{ .Values.forced_namespace }}"
+          value: "{{ .Values.forcedNamespace }}"
         {{ end }}
-        {{ if and .Values.bridge.ringfence_node_label .Values.bridge.ringfence_node_label_value }}
+        {{ if and .Values.bridge.ringfenceNodeLabel .Values.bridge.ringfenceNodeLabelValue }}
         - name: RINGFENCE_NODE_LABEL
-          value: "{{ .Values.bridge.ringfence_node_label }}"
+          value: "{{ .Values.bridge.ringfenceNodeLabel }}"
         - name: RINGFENCE_NODE_LABEL_VALUE
-          value: "{{ .Values.bridge.ringfence_node_label_value }}"
+          value: "{{ .Values.bridge.ringfenceNodeLabelValue }}"
         {{ end }}
         resources:
           requests:
