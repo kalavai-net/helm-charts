@@ -45,6 +45,12 @@ spec:
         - name: FORCED_USER_SPACE_NAME
           value: "{{ .Values.forced_namespace }}"
         {{ end }}
+        {{ if and .Values.bridge.ringfence_node_label .Values.bridge.ringfence_node_label_value }}
+        - name: RINGFENCE_NODE_LABEL
+          value: "{{ .Values.bridge.ringfence_node_label }}"
+        - name: RINGFENCE_NODE_LABEL_VALUE
+          value: "{{ .Values.bridge.ringfence_node_label_value }}"
+        {{ end }}
         resources:
           requests:
             cpu: {{ .Values.bridge.cpus}}
