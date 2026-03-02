@@ -41,7 +41,7 @@ spec:
           value: "{{ .Values.bridge.watcherApiUrl }}"
         - name: WATCHER_API_KEY
           value: "{{ .Values.bridge.watcherApiKey }}"
-        {{ if .Values.forcedNamespace }}
+        {{ if .Values.bridge.forcedNamespace }}
         - name: FORCED_USER_SPACE_NAME
           value: "{{ .Values.bridge.forcedNamespace }}"
         {{ end }}
