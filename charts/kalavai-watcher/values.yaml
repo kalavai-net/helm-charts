@@ -12,7 +12,7 @@ deployment:
   isSharedPool: "True"
   staticWorkspace: null
   kalavaiApiEndpoint: "https://platform.kalavai.net/_/api"
-  prometheusEndpoint: "prometheus-server.prometheus-system.svc.cluster.local:80"
+  prometheusEndpoint: "http://thanos-query-frontend.monitoring:9090"
   opencostEndpoint: "opencost.opencost.svc.cluster.local:9003"
   longhornManagerEndpoint: "longhorn-backend.kalavai.svc.cluster.local:9500"
 
