@@ -43,7 +43,7 @@ spec:
           value: "{{ .Values.bridge.watcherApiKey }}"
         {{ if .Values.forcedNamespace }}
         - name: FORCED_USER_SPACE_NAME
-          value: "{{ .Values.forcedNamespace }}"
+          value: "{{ .Values.bridge.forcedNamespace }}"
         {{ end }}
         {{ if and .Values.bridge.ringfenceNodeLabel .Values.bridge.ringfenceNodeLabelValue }}
         - name: RINGFENCE_NODE_LABEL

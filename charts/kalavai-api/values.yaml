@@ -1,7 +1,5 @@
 releaseName:
 
-forcedNamespace: null
-
 bridge:
   replicas: 1
   nodeSelector: null
@@ -15,6 +13,7 @@ bridge:
   memory: 256Mi
   ringfenceNodeLabel: null
   ringfenceNodeLabelValue: null
+  forcedNamespace: null
 
   service:
     type: NodePort
