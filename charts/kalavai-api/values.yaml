@@ -14,6 +14,7 @@ bridge:
   ringfenceNodeLabel: null
   ringfenceNodeLabelValue: null
   forcedNamespace: null
+  forcedPriority: null
 
   service:
     type: NodePort

@@ -20,12 +20,12 @@ spec:
         {{- toYaml .Values.bridge.labels | nindent 8 }}
         {{- end }}
     spec:
-    {{ if .Values.bridge.nodeSelector }}
+    {{- if .Values.bridge.nodeSelector }}
       nodeSelector:
       {{- range $name,$value := .Values.bridge.nodeSelector }}
         {{$name}}: {{$value}}
       {{- end }}
-    {{ end }}
+    {{- end }}
       containers:
       - name: bridge
         image: ghcr.io/kalavai-net/kalavai-client:{{ .Values.bridge.imageTag }}
@@ -41,16 +41,20 @@ spec:
           value: "{{ .Values.bridge.watcherApiUrl }}"
         - name: WATCHER_API_KEY
           value: "{{ .Values.bridge.watcherApiKey }}"
-        {{ if .Values.bridge.forcedNamespace }}
+        {{- if .Values.bridge.forcedNamespace }}
         - name: FORCED_USER_SPACE_NAME
           value: "{{ .Values.bridge.forcedNamespace }}"
-        {{ end }}
-        {{ if and .Values.bridge.ringfenceNodeLabel .Values.bridge.ringfenceNodeLabelValue }}
+        {{- end }}
+        {{- if and .Values.bridge.ringfenceNodeLabel .Values.bridge.ringfenceNodeLabelValue }}
         - name: RINGFENCE_NODE_LABEL
           value: "{{ .Values.bridge.ringfenceNodeLabel }}"
         - name: RINGFENCE_NODE_LABEL_VALUE
           value: "{{ .Values.bridge.ringfenceNodeLabelValue }}"
-        {{ end }}
+        {{- end }}
+        {{- if .Values.bridge.forcedPriority }}
+        - name: FORCED_PRIORITY
+          value: "{{ .Values.bridge.forcedPriority }}"
+        {{- end }}
         resources:
           requests:
             cpu: {{ .Values.bridge.cpus}}
