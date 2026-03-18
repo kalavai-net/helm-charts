@@ -2,6 +2,7 @@ releaseName:
 
 bridge:
   replicas: 1
+  cutoffMetricsDate: null
   nodeSelector: null
   labels:
     name: kalavai-api

@@ -55,6 +55,10 @@ spec:
         - name: FORCED_PRIORITY
           value: "{{ .Values.bridge.forcedPriority }}"
         {{- end }}
+        {{- if .Values.bridge.cutoffMetricsDate }}
+        - name: CUTOFF_METRICS_DATE
+          value: "{{ .Values.bridge.cutoffMetricsDate }}"
+        {{- end }}
         resources:
           requests:
             cpu: {{ .Values.bridge.cpus}}
