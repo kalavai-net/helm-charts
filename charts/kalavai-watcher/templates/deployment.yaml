@@ -29,7 +29,7 @@ spec:
       containers:
       - name: kube-watcher-api
         image: ghcr.io/kalavai-net/kube-watcher:{{ .Values.imageTag }}
-        imagePullPolicy: "IfNotPresent"
+        imagePullPolicy: "Always"
         ports:
         - containerPort: 8000
         env:
