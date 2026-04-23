@@ -10,8 +10,8 @@ bridge:
   enabled: true
   watcherApiUrl: localhost:30000
   watcherApiKey: api_key_here
-  cpus: 0.33
-  memory: 256Mi
+  cpus: 1
+  memory: 512Mi
   ringfenceNodeLabel: null
   ringfenceNodeLabelValue: null
   forcedNamespace: null
