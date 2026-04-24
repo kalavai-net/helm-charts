@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ .Release.Name }}-cluster-role-binding
+  name: {{ .Release.Name }}-{{ .Release.Namespace }}-cluster-role-binding
   {{- if .Values.labels }}
   labels:
     {{- toYaml .Values.labels | nindent 4 }}
@@ -9,8 +9,8 @@ metadata:
 subjects:
 - namespace: {{ .Release.Namespace }}
   kind: ServiceAccount
-  name: {{ .Release.Name }}-service-account 
+  name: {{ .Release.Name }}-{{ .Release.Namespace }}-service-account 
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ .Release.Name }}-cluster-role 
+  name: {{ .Release.Name }}-{{ .Release.Namespace }}-cluster-role 

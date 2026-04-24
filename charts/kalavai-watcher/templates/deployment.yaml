@@ -72,4 +72,4 @@ spec:
           limits:
             cpu: {{ .Values.resources.limits.cpus }}
             memory: {{ .Values.resources.limits.memory }}
-      serviceAccountName: {{ .Release.Name }}-service-account  # Service account with cluster permissions
+      serviceAccountName: {{ .Release.Name }}-{{ .Release.Namespace }}-service-account  # Service account with cluster permissions
