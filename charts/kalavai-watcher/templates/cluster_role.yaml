@@ -25,6 +25,8 @@ rules:
         - traefik.io
     resources:
       - pods
+      - clusterrolebindings
+      - clusterroles
       - componentstatuses
       - configmaps
       - daemonsets
@@ -65,5 +67,4 @@ rules:
       - jobs/status
       - datasets
       - middlewares
-      - clusterrolebindings
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
