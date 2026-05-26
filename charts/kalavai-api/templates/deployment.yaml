@@ -40,7 +40,10 @@ spec:
         - name: WATCHER_API_URL
           value: "{{ .Values.bridge.watcherApiUrl }}"
         - name: WATCHER_API_KEY
-          value: "{{ .Values.bridge.watcherApiKey }}"
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-kalavai-api-secret
+              key: watcher_api_key
         {{- if .Values.bridge.forcedNamespace }}
         - name: FORCED_USER_SPACE_NAME
           value: "{{ .Values.bridge.forcedNamespace }}"
@@ -59,6 +62,17 @@ spec:
         - name: CUTOFF_METRICS_DATE
           value: "{{ .Values.bridge.cutoffMetricsDate }}"
         {{- end }}
+        - name: CLICKHOUSE_ENDPOINT
+          value: "{{ .Values.clickhouse.endpoint }}"
+        - name: CLICKHOUSE_PORT
+          value: "{{ .Values.clickhouse.port }}"
+        - name: CLICKHOUSE_USERNAME
+          value: "{{ .Values.clickhouse.username }}"
+        - name: CLICKHOUSE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-kalavai-api-secret
+              key: clickhouse_password
         resources:
           requests:
             cpu: {{ .Values.bridge.cpus}}
