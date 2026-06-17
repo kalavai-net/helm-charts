@@ -24,6 +24,7 @@ rules:
         - source.toolkit.fluxcd.io
         - kalavai.net
         - traefik.io
+        - gateway.networking.k8s.io
     resources:
       - pods
       - clusterrolebindings
@@ -34,6 +35,7 @@ rules:
       - deployments
       - events
       - endpoints
+      - gateways
       - helmreleases
       - helmrepositories
       - helmchartconfigs
